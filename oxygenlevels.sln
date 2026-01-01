@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36811.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxygenLevels", "OxygenLevels\OxygenLevels.csproj", "{9A661E42-2431-48E9-AAD1-F5533CE0F058}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A661E42-2431-48E9-AAD1-F5533CE0F058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A661E42-2431-48E9-AAD1-F5533CE0F058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A661E42-2431-48E9-AAD1-F5533CE0F058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A661E42-2431-48E9-AAD1-F5533CE0F058}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64D38660-DD9A-415E-A5F0-866206D34E66}
+	EndGlobalSection
+EndGlobal
