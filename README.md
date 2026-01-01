@@ -1,4 +1,5 @@
-OxygenLevels is a mod for The Long Dark that introduces an oxygen deprivation system based on the player's altitude.
-The higher your altitude, the greater the penalties applied to the player will be.
+OxygenLevels is a mod for The Long Dark that introduces a system to simulate oxygen deprivation based on the player's altitude.
 
-This mod tweaking stamina regeneration rate, stamina and fatigue consumtion when sprinting depend of the player's altitude.
+The higher the altitude, the greater the penalties applied to the player.
+
+This mod adjusts the stamina regeneration rate, stamina and fatigue consumption during sprints, according to the player's altitude.
