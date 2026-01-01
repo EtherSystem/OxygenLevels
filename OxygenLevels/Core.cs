@@ -20,7 +20,7 @@ namespace OxygenLevels
         private float baseMaxFatigueSprintUsageRate = 150f;
         private float baseMinFatigueSprintUsageRate = 1f;
 
-        private enum AltitudeState { Normal, Weakened, HeavyWeakened }
+        private enum AltitudeState { Normal, Weakened, HeavyWeakened, TooWeak }
         private AltitudeState currentState = AltitudeState.Normal;
 
         public override void OnUpdate()
@@ -39,7 +39,8 @@ namespace OxygenLevels
         {
             AltitudeState newState;
 
-            if (yValue >= 460f) newState = AltitudeState.HeavyWeakened;
+            if (yValue >= 580f) newState = AltitudeState.TooWeak;
+            else if (yValue >= 460f) newState = AltitudeState.HeavyWeakened;
             else if (yValue >= 360f) newState = AltitudeState.Weakened;
             else newState = AltitudeState.Normal;
 
@@ -68,11 +69,19 @@ namespace OxygenLevels
                         //headache visual effect
                         HUDMessage.AddMessage("Critical oxygen - You are seriously weakened", 5, false);
                         break;
+                    case AltitudeState.TooWeak:
+                        staminaMultiplier = 0.01f;
+                        staminaConsumptionMultiplier = 3f;
+                        maxFatigueBurnMultiplier = 20f;
+                        minFatigueBurnMultiplier = 20f;
+                        HUDMessage.AddMessage("You are far too weak...", 5, false);
+                        break;
+
                     case AltitudeState.Normal:
                         staminaMultiplier = 1f;
                         staminaConsumptionMultiplier = 1f;
                         maxFatigueBurnMultiplier = 1f;
-                        HUDMessage.AddMessage("Oxygen levels stabilized", 5, false);
+                        HUDMessage.AddMessage("Oxygen level stabilized", 5, false);
                         break;
                 }
                 GameManager.GetPlayerMovementComponent().m_SprintStaminaRecoverPerHour = baseStaminaRegenRate * staminaMultiplier;
