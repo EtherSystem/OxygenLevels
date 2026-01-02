@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.0.0", "EtherSystem", null)]
+[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.0.1", "EtherSystem", null)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 
 namespace OxygenLevels
