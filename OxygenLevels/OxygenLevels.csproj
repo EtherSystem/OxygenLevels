@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TheLongDarkPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark</TheLongDarkPath>
+		<TheLongDarkPath>C:\Program Files (x86)\Steam\steamapps\content\app_305620\depot_305621</TheLongDarkPath>
 	</PropertyGroup>	
 	
 	<!-- List of used references -->
@@ -61,6 +61,7 @@
 
 	<ItemGroup>
 		<Compile Include="Core.cs" />
+		<Compile Include="VisualPatch.cs" />
 	</ItemGroup>
 
 	<!-- This is a build event. It will copy your dll to the currently defined TheLongDarkPath's Mods folder -->

@@ -20,8 +20,8 @@ namespace OxygenLevels
         private float baseMaxFatigueSprintUsageRate = 150f;
         private float baseMinFatigueSprintUsageRate = 1f;
 
-        private enum AltitudeState { Normal, Weakened, HeavyWeakened, TooWeak }
-        private AltitudeState currentState = AltitudeState.Normal;
+        public enum AltitudeState { Normal, Weakened, HeavyWeakened, TooWeak }
+        public static AltitudeState currentState = AltitudeState.Normal;
 
         public override void OnUpdate()
         {
@@ -66,7 +66,7 @@ namespace OxygenLevels
                         staminaConsumptionMultiplier = 2.5f;
                         maxFatigueBurnMultiplier = 10f;
                         minFatigueBurnMultiplier = 10f;
-                        //headache visual effect
+                        //GameManager.GetCameraStatusEffects().m_TriggerHeadachePulse = true;
                         HUDMessage.AddMessage("Critical oxygen - You are seriously weakened", 5, false);
                         break;
                     case AltitudeState.TooWeak:
@@ -75,8 +75,9 @@ namespace OxygenLevels
                         maxFatigueBurnMultiplier = 20f;
                         minFatigueBurnMultiplier = 20f;
                         HUDMessage.AddMessage("You are far too weak...", 5, false);
+                        //if (GameManager.GetPlayerMovementComponent().CurrentStamina = 0 && GameManager.GetPlayerManagerComponent().PlayerIsSprinting = true);
+                        //when sprinting with stam==0 -> allow sprint + HP lose when sprinting
                         break;
-
                     case AltitudeState.Normal:
                         staminaMultiplier = 1f;
                         staminaConsumptionMultiplier = 1f;
