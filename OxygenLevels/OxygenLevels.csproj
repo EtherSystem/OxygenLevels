@@ -61,6 +61,7 @@
 
 	<ItemGroup>
 		<Compile Include="Core.cs" />
+		<Compile Include="OxModSettings.cs" />
 		<Compile Include="VisualPatch.cs" />
 	</ItemGroup>
 

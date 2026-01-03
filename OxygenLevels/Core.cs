@@ -12,6 +12,7 @@ namespace OxygenLevels
         public override void OnInitializeMelon()
         {
             LoggerInstance.Msg("Initialized.");
+            Settings.OnLoad();
         }
         public const float MaxThreshold = 1200f;
         private float updateTimer = 0f;
@@ -55,25 +56,27 @@ namespace OxygenLevels
                 switch (currentState)
                 {
                     case AltitudeState.Weakened:
-                        staminaMultiplier = 0.6f;
-                        staminaConsumptionMultiplier = 1.5f;
-                        maxFatigueBurnMultiplier = 4f;
-                        minFatigueBurnMultiplier = 4f;
+                        staminaMultiplier = Settings.options.lowStaminaMultiplier;
+                        staminaConsumptionMultiplier = Settings.options.lowStaminaConsumptionMultiplier;
+                        maxFatigueBurnMultiplier = Settings.options.lowMaxFatigueBurnMultiplier;
+                        minFatigueBurnMultiplier = Settings.options.lowMinFatigueBurnMultiplier;
                         HUDMessage.AddMessage("Low oxygen - You feel weak", 5, false);
                         break;
                     case AltitudeState.HeavyWeakened:
-                        staminaMultiplier = 0.3f;
-                        staminaConsumptionMultiplier = 2.5f;
-                        maxFatigueBurnMultiplier = 10f;
-                        minFatigueBurnMultiplier = 10f;
+                        staminaMultiplier = Settings.options.CritStaminaMultiplier;
+                        staminaConsumptionMultiplier = Settings.options.CritStaminaConsumptionMultiplier;
+                        maxFatigueBurnMultiplier = Settings.options.CritMaxFatigueBurnMultiplier;
+                        minFatigueBurnMultiplier = Settings.options.CritMinFatigueBurnMultiplier;
                         //GameManager.GetCameraStatusEffects().m_TriggerHeadachePulse = true;
+
+                        
                         HUDMessage.AddMessage("Critical oxygen - You are seriously weakened", 5, false);
                         break;
                     case AltitudeState.TooWeak:
                         staminaMultiplier = 0.01f;
-                        staminaConsumptionMultiplier = 3f;
-                        maxFatigueBurnMultiplier = 20f;
-                        minFatigueBurnMultiplier = 20f;
+                        staminaConsumptionMultiplier = Settings.options.InsuStaminaConsumptionMultiplier;
+                        maxFatigueBurnMultiplier = Settings.options.InsuMaxFatigueBurnMultiplier;
+                        minFatigueBurnMultiplier = Settings.options.InsuMinFatigueBurnMultiplier;
                         HUDMessage.AddMessage("You are far too weak...", 5, false);
                         //if (GameManager.GetPlayerMovementComponent().CurrentStamina = 0 && GameManager.GetPlayerManagerComponent().PlayerIsSprinting = true);
                         //when sprinting with stam==0 -> allow sprint + HP lose when sprinting
@@ -82,6 +85,7 @@ namespace OxygenLevels
                         staminaMultiplier = 1f;
                         staminaConsumptionMultiplier = 1f;
                         maxFatigueBurnMultiplier = 1f;
+                        minFatigueBurnMultiplier = 1f;
                         HUDMessage.AddMessage("Oxygen level stabilized", 5, false);
                         break;
                 }
