@@ -89,7 +89,7 @@ namespace OxygenLevels
                         staminaConsumptionMultiplier = Settings.options.CritStaminaConsumptionMultiplier;
                         maxFatigueBurnMultiplier = Settings.options.CritMaxFatigueBurnMultiplier;
                         minFatigueBurnMultiplier = Settings.options.CritMinFatigueBurnMultiplier;
-                        //GameManager.GetCameraStatusEffects().m_TriggerHeadachePulse = true;
+                        //GameManager.GetCameraStatusEffects().m_TriggerHeadachePulse = true; maybe move it in the OnUpdate ?
 
                         
                         HUDMessage.AddMessage("Critical oxygen - You are seriously weakened", 5, false);
