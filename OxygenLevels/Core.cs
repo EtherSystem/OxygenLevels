@@ -4,7 +4,7 @@ using Il2CppRewired.ComponentControls.Data;
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.1.1", "EtherSystem", null)]
+[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.1.2", "EtherSystem", null)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 
 namespace OxygenLevels
