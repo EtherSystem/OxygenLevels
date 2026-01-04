@@ -3,13 +3,27 @@ using UnityEngine;
 using ModSettings;
 using System.ComponentModel;
 using System.Reflection;
+using Unity.VisualScripting;
 
 namespace OxygenLevels
 {
     internal class OxModSettings : JsonModSettings
     {
-        //Low o₂ effects
-        [Section("Low o₂ effects")]
+        //interloperHUDpro
+        [Section("HUD Settings")]
+
+        [Name("Elevation")]
+        [Description("A game restart will be required. Set it to 100 if you're using InterloperHUDpro. Otherwise, leave it at 20.")]
+        [Slider(20, 100, 2)]
+        public int elevationHUD = 20; 
+        
+        //Low o₂
+        [Section("Low o₂")]
+
+        [Name("Altitude threshold")]
+        [Description("Base = 360")]
+        [Slider(0, 600)]
+        public float lowThreshold = 360f;
 
         [Name("Stamina recovery speed")]
         [Description("Base = 0.6")]
@@ -32,8 +46,13 @@ namespace OxygenLevels
         public float lowMaxFatigueBurnMultiplier = 4f;
 
 
-        //Critical o₂ effects
-        [Section("Critical o₂ effects")]
+        //Critical o₂
+        [Section("Critical o₂")]
+
+        [Name("Altitude threshold")]
+        [Description("Base = 460")]
+        [Slider(0, 650)]
+        public float CritThreshold = 460f;
 
         [Name("Stamina recovery speed")]
         [Description("Base = 0.3")]
@@ -56,13 +75,18 @@ namespace OxygenLevels
         public float CritMaxFatigueBurnMultiplier = 10f;
 
 
-        //Insufficient o₂ effects
-        [Section("Insufficient o₂ effects")]
+        //Insufficient o₂
+        [Section("Insufficient o₂")]
+
+        [Name("Altitude threshold")]
+        [Description("Base = 580")]
+        [Slider(0, 700)]
+        public float InsuThreshold = 580f;
 
         [Name("Stamina recovery speed")]
-        [Description("Base = 0.01")]
-        [Slider(0.01f, 1)]
-        public float InsuStaminaMultiplier = 0.01f;
+        [Description("Base = 0.1 / 10")]
+        [Slider(0.1f, 10.00f, 99)]
+        public float InsuStaminaMultiplier = 0.1f;
 
         [Name("Stamina consumption speed")]
         [Description("Base = 3")]
@@ -79,6 +103,15 @@ namespace OxygenLevels
         [Slider(1, 100)]
         public float InsuMaxFatigueBurnMultiplier = 20f;
 
+        [Name("Stamina consumption when walking")]
+        [Description("Base = 0.1")]
+        [Slider(0.1f, 10, 99)]
+        public float InsuStaminaWalkingBurn = 0.1f;
+
+        [Name("Condition lost when walking with no stamina")]
+        [Description("Base = 0.5 / 10")]
+        [Slider(0.5f, 10f, 95)]
+        public float ConditionLostZeroStamina = 0.5f;
 
         protected override void OnConfirm()
         {

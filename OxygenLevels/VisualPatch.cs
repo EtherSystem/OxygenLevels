@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
 using Il2Cpp;
+using Il2CppRewired.ComponentControls.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static OxygenLevels.Core;
@@ -59,8 +60,8 @@ namespace OxygenLevels
                     tempLabel.pivot = UIWidget.Pivot.Left;
 
                     //int x_offset = -sprite.width / 2; // + tempLabel.width/2;
-                    int x_offset = -tempLabel.width / 2;
-                    int y_offset = 100 + tempLabel.height;
+                    int x_offset = 50 - tempLabel.width;
+                    int y_offset = (Settings.options.elevationHUD) + tempLabel.height;
                     tempObject.transform.localPosition = new Vector3(x_offset, y_offset, 0);
                 }
                 else if (GameManager.GetHighResolutionTimerManager().GetElapsedMinutes() - elapsedMinutes >= 0.1d)

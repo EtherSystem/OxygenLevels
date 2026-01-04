@@ -1,8 +1,10 @@
 ﻿using Il2Cpp;
+using Il2CppRewired;
+using Il2CppRewired.ComponentControls.Data;
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.0.1", "EtherSystem", null)]
+[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.1.1", "EtherSystem", null)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 
 namespace OxygenLevels
@@ -20,7 +22,7 @@ namespace OxygenLevels
         private float baseStaminaSprintUsageRate = 5f;
         private float baseMaxFatigueSprintUsageRate = 150f;
         private float baseMinFatigueSprintUsageRate = 1f;
-
+        
         public enum AltitudeState { Normal, Weakened, HeavyWeakened, TooWeak }
         public static AltitudeState currentState = AltitudeState.Normal;
 
@@ -34,15 +36,35 @@ namespace OxygenLevels
 
             float yValue = GameManager.GetPlayerTransform().position.y;
             ApplyAltitudeEffects(yValue);
+
+            var isWalking = GameManager.GetPlayerManagerComponent().PlayerIsWalking();
+            var isSprinting = GameManager.GetPlayerManagerComponent().PlayerIsSprinting();
+            var currentStamina = GameManager.GetPlayerMovementComponent().CurrentStamina;
+
+
+            if (isWalking == true && currentStamina > 0 && yValue > Settings.options.InsuThreshold)
+            {
+                InterfaceManager.GetPanel<Panel_HUD>().m_SprintBar.alpha = 1f;
+                InterfaceManager.GetPanel<Panel_HUD>().m_SprintFadeTimeTracker = 2;
+                GameManager.GetPlayerMovementComponent().AddSprintStamina(-Settings.options.InsuStaminaWalkingBurn);
+            }
+            else if (isWalking == false && isSprinting == false && yValue > Settings.options.InsuThreshold)
+            {
+                InterfaceManager.GetPanel<Panel_HUD>().m_SprintBar_SecondsBeforeFadeOut = 2;
+            }
+            else if (isWalking == true && currentStamina == 1 && yValue > Settings.options.InsuThreshold)
+            {
+                GameManager.m_Condition.m_CurrentHP -= (Settings.options.ConditionLostZeroStamina / 10);
+            }
         }
 
         private void ApplyAltitudeEffects(float yValue)
         {
             AltitudeState newState;
 
-            if (yValue >= 580f) newState = AltitudeState.TooWeak;
-            else if (yValue >= 460f) newState = AltitudeState.HeavyWeakened;
-            else if (yValue >= 360f) newState = AltitudeState.Weakened;
+            if (yValue >= Settings.options.InsuThreshold) newState = AltitudeState.TooWeak;
+            else if (yValue >= Settings.options.CritThreshold) newState = AltitudeState.HeavyWeakened;
+            else if (yValue >= Settings.options.lowThreshold) newState = AltitudeState.Weakened;
             else newState = AltitudeState.Normal;
 
             if (newState != currentState)
@@ -73,13 +95,11 @@ namespace OxygenLevels
                         HUDMessage.AddMessage("Critical oxygen - You are seriously weakened", 5, false);
                         break;
                     case AltitudeState.TooWeak:
-                        staminaMultiplier = 0.01f;
+                        staminaMultiplier = (Settings.options.InsuStaminaMultiplier / 10);
                         staminaConsumptionMultiplier = Settings.options.InsuStaminaConsumptionMultiplier;
                         maxFatigueBurnMultiplier = Settings.options.InsuMaxFatigueBurnMultiplier;
                         minFatigueBurnMultiplier = Settings.options.InsuMinFatigueBurnMultiplier;
                         HUDMessage.AddMessage("You are far too weak...", 5, false);
-                        //if (GameManager.GetPlayerMovementComponent().CurrentStamina = 0 && GameManager.GetPlayerManagerComponent().PlayerIsSprinting = true);
-                        //when sprinting with stam==0 -> allow sprint + HP lose when sprinting
                         break;
                     case AltitudeState.Normal:
                         staminaMultiplier = 1f;
