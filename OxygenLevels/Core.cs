@@ -42,7 +42,7 @@ namespace OxygenLevels
             var currentStamina = GameManager.GetPlayerMovementComponent().CurrentStamina;
 
 
-            if (isWalking == true && currentStamina > 0 && yValue > Settings.options.InsuThreshold)
+            if (isWalking == true && currentStamina > 1 && yValue > Settings.options.InsuThreshold)
             {
                 InterfaceManager.GetPanel<Panel_HUD>().m_SprintBar.alpha = 1f;
                 InterfaceManager.GetPanel<Panel_HUD>().m_SprintFadeTimeTracker = 2;
@@ -52,7 +52,7 @@ namespace OxygenLevels
             {
                 InterfaceManager.GetPanel<Panel_HUD>().m_SprintBar_SecondsBeforeFadeOut = 2;
             }
-            else if (isWalking == true && currentStamina == 1 && yValue > Settings.options.InsuThreshold)
+            else if (isWalking == true && currentStamina <= 1 && yValue > Settings.options.InsuThreshold)
             {
                 GameManager.m_Condition.m_CurrentHP -= (Settings.options.ConditionLostZeroStamina / 10);
             }
