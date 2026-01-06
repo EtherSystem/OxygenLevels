@@ -4,63 +4,63 @@
         "French (France)": "Niveau d'oxygène stabilisé",
         "Spanish (Spain)": "Nivel de oxígeno estabilizado",
         "German": "Sauerstoffgehalt stabilisiert",
-        "Turkish": "",
-        "Russian": ""
+        "Turkish": "Oksijen seviyesi stabilize oldu",
+        "Russian": "Уровень кислорода стабилизировался"
     },
     "GAMEPLAY_LowWarning": {
         "English": "Low oxygen - You feel weak",
         "French (France)": "Oxygène faible - Vous vous sentez faible",
         "Spanish (Spain)": "Bajo nivel de oxígeno - te sientes débil",
         "German": "Sauerstoffmangel – Sie fühlen sich schwach",
-        "Turkish": "",
-        "Russian": ""
+        "Turkish": "Düşük oksijen seviyesi - Kendinizi halsiz hissedersiniz",
+        "Russian": "Низкий уровень кислорода - Вы чувствуете слабость"
     },
     "GAMEPLAY_CriticalWarning": {
         "English": "Critical oxygen - You are seriously weakened",
         "French (France)": "Oxygène critique - Vous êtes sérieusement affaibli",
         "Spanish (Spain)": "Oxígeno crítico - estás seriamente debilitado",
         "German": "Kritischer Sauerstoffmangel – Sie sind ernsthaft geschwächt",
-        "Turkish": "",
-        "Russian": ""
+        "Turkish": "Kritik oksijen seviyesi - Ciddi derecede zayıflamışsınız",
+        "Russian": "Критический уровень кислорода — вы серьезно ослаблены"
     },
     "GAMEPLAY_InsufficientWarning": {
         "English": "You are far too weak...",
         "French (France)": "Vous êtes bien trop faible...",
         "Spanish (Spain)": "Eres demasiado débil...",
         "German": "Du bist viel zu schwach...",
-        "Turkish": "",
-        "Russian": ""
+        "Turkish": "Sen çok güçsüzsün...",
+        "Russian": "Ты слишком слаб..."
     },
     "GAMEPLAY_NormalDisplay": {
         "English": "   Normal o₂",
         "French (France)": "   o₂ normal",
         "Spanish (Spain)": "   o₂ normal",
         "German": "   Normaler o₂",
-        "Turkish": "   ",
-        "Russian": "   "
+        "Turkish": "   Normal o₂",
+        "Russian": "   Нормальный о₂"
     },
     "GAMEPLAY_LowDisplay": {
         "English": "   Low o₂",
         "French (France)": "   o₂ faible",
         "Spanish (Spain)": "   Bajo o₂",
         "German": "   Niedrig o₂",
-        "Turkish": "   ",
-        "Russian": "   "
+        "Turkish": "   Düşük o₂",
+        "Russian": "   Низкий o₂"
     },
     "GAMEPLAY_CriticalDisplay": {
         "English": "   Critical o₂",
         "French (France)": "   o₂ critique",
         "Spanish (Spain)": "   O₂ crítico",
         "German": "   Kritischer o₂",
-        "Turkish": "   ",
-        "Russian": "   "
+        "Turkish": "   Kritik o₂",
+        "Russian": "   Критический o₂"
     },
     "GAMEPLAY_InsufficientDisplay": {
         "English": "   Insufficient o₂",
         "French (France)": "   o₂ insuffisant",
         "Spanish (Spain)": "   O₂ insuficiente",
         "German": "   Unzureichend O₂",
-        "Turkish": "   ",
-        "Russian": "   "
+        "Turkish": "   Yetersiz o₂",
+        "Russian": "   Недостаточно o₂"
     }
 }
