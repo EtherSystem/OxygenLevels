@@ -20,17 +20,9 @@
 	<!-- List of used references -->
 	<ItemGroup>
 		<!-- This is the base reference. MUST EXIST -->
-		<PackageReference Include="STBlade.Modding.TLD.GearSpawner" Version="2.3.1" />
 		<PackageReference Include="STBlade.Modding.TLD.Il2CppAssemblies.Windows" Version="2.51.0" />
-		<PackageReference Include="STBlade.Modding.TLD.LocalizationUtilities" Version="2.0.0" />
 		<!-- This is only if you use the ModSettings -->
 		<PackageReference Include="STBlade.Modding.TLD.ModSettings" Version="1.9.0" />
-		<!-- Only if you need ModComponent -->
-		<PackageReference Include="STBlade.Modding.TLD.ModComponent" Version="6.2.3" />
-		<!-- Only if you need LocalizationUtilities -->
-		<!-- Only if you need CraftingRevisions  -->
-		<PackageReference Include="STBlade.Modding.TLD.CraftingRevisions" Version="2.2.3" />
-		<!-- Only if you need GearSpawner -->
 		<!-- Only if you need ModData  -->
 		<PackageReference Include="STBlade.Modding.TLD.ModData" Version="1.5.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
@@ -48,12 +40,6 @@
 		<Using Include="ModSettings" />
 		<!-- Only if your using ModComponent -->
 		<Using Include="ModComponent" />
-		<!-- Only if your using LocalizationUtilities -->
-		<Using Include="LocalizationUtilities" />
-		<!-- Only if your using CraftingRevisions -->
-		<Using Include="CraftingRevisions" />
-		<!-- Only if your using GearSpawner -->
-		<Using Include="GearSpawner" />
 		<!-- Only if your using ModData -->
 		<Using Include="ModData" />
 	</ItemGroup>
@@ -75,7 +61,7 @@
 
 	<ItemGroup>
 	  <Reference Include="ModComponent">
-	    <HintPath>D:\SteamLibrary\steamapps\common\TheLongDark\Mods\ModComponent.dll</HintPath>
+	    <HintPath>$(TheLongDarkPath)\Mods\ModComponent.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 
