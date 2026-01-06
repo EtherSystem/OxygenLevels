@@ -74,19 +74,19 @@ namespace OxygenLevels
                         switch (Core.currentState)
                         {
                             case AltitudeState.Normal:
-                                tempLabel.text = "   Normal o₂";
+                                tempLabel.text = Localization.Get("GAMEPLAY_NormalDisplay");
                                 tempLabel.color = new Color(0.9f, 0.95f, 1f);  // Use an off white
                                 break;
                             case AltitudeState.Weakened:
-                                tempLabel.text = "   Low o₂";
+                                tempLabel.text = Localization.Get("GAMEPLAY_LowDisplay");
                                 tempLabel.color = new Color(1f, 0.85f, 0.2f);  // Yellowish
                                 break;
                             case AltitudeState.HeavyWeakened:
-                                tempLabel.text = "   Critical o₂";
+                                tempLabel.text = Localization.Get("GAMEPLAY_CriticalDisplay");
                                 tempLabel.color = darkRed;
                                 break;
                             case AltitudeState.TooWeak:
-                                tempLabel.text = "   Insufficient o₂";
+                                tempLabel.text = Localization.Get("GAMEPLAY_InsufficientDisplay");
                                 tempLabel.color = darkRed;
                                 break;
                         }

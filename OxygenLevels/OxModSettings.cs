@@ -23,27 +23,32 @@ namespace OxygenLevels
         [Name("Altitude threshold")]
         [Description("Base = 360")]
         [Slider(0, 600)]
-        public float lowThreshold = 360f;
+        public float LowThreshold = 360f;
 
         [Name("Stamina recovery speed")]
         [Description("Base = 0.6")]
         [Slider(0, 1)]
-        public float lowStaminaMultiplier = 0.6f;
+        public float LowStaminaMultiplier = 0.6f;
 
         [Name("Stamina consumption speed")]
         [Description("Base = 1.5")]
         [Slider(1, 10)]
-        public float lowStaminaConsumptionMultiplier = 1.5f;
+        public float LowStaminaConsumptionMultiplier = 1.5f;
 
         [Name("Minimum fatigue consumption speed")]
         [Description("Base = 4")]
         [Slider(1, 100)]
-        public float lowMinFatigueBurnMultiplier = 4f;
+        public float LowMinFatigueBurnMultiplier = 4f;
 
         [Name("Maximum fatigue consumption speed")]
         [Description("Base = 4")]
         [Slider(1, 100)]
-        public float lowMaxFatigueBurnMultiplier = 4f;
+        public float LowMaxFatigueBurnMultiplier = 4f;
+
+        [Name("Fire ignition multiplier")]
+        [Description("Base = 2")]
+        [Slider(1, 10)]
+        public float LowFireIgnitionMultiplier = 2f;
 
 
         //Critical o₂
@@ -73,6 +78,11 @@ namespace OxygenLevels
         [Description("Base = 10")]
         [Slider(1, 100)]
         public float CritMaxFatigueBurnMultiplier = 10f;
+
+        [Name("Fire ignition multiplier")]
+        [Description("Base = 3")]
+        [Slider(1, 10)]
+        public float CritFireIgnitionMultiplier = 3f;
 
 
         //Insufficient o₂
@@ -112,6 +122,11 @@ namespace OxygenLevels
         [Description("Base = 0.5 / 10")]
         [Slider(0.5f, 10f, 95)]
         public float ConditionLostZeroStamina = 0.5f;
+
+        [Name("Fire ignition multiplier")]
+        [Description("Base = 5")]
+        [Slider(1, 10)]
+        public float InsuFireIgnitionMultiplier = 5f;
 
         protected override void OnConfirm()
         {
