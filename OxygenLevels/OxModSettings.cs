@@ -15,7 +15,7 @@ namespace OxygenLevels
         [Name("Elevation")]
         [Description("A game restart will be required. Set it to 100 if you're using InterloperHUDpro. Otherwise, leave it at 20.")]
         [Slider(20, 100, 2)]
-        public int elevationHUD = 20; 
+        public int elevationHUD = 20;
         
         //Low o₂
         [Section("Low o₂")]

@@ -6,7 +6,7 @@ using UnityEngine;
 using LocalizationUtilities;
 using ModComponent;
 
-[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.1.3", "EtherSystem", null)]
+[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.1.4", "EtherSystem", null)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 
 namespace OxygenLevels
