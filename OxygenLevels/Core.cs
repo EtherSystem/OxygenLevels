@@ -13,6 +13,7 @@ namespace OxygenLevels
 {
     public class Core : MelonMod
     {
+        public static bool isInterHUD = false;
         public static string? LoadEmbeddedJSON(string Localization)
         {
             string? result = null;

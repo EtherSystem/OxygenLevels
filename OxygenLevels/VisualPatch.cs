@@ -61,8 +61,16 @@ namespace OxygenLevels
 
                     //int x_offset = -sprite.width / 2; // + tempLabel.width/2;
                     int x_offset = 50 - tempLabel.width;
-                    int y_offset = (Settings.options.elevationHUD) + tempLabel.height;
-                    tempObject.transform.localPosition = new Vector3(x_offset, y_offset, 0);
+                    if (Settings.options.interHUD == true)
+                    {
+                        int y_offset = 100 + tempLabel.height;
+                        tempObject.transform.localPosition = new Vector3(x_offset, y_offset, 0);
+                    }
+                    else
+                    {
+                        int y_offset = 20 + tempLabel.height;
+                        tempObject.transform.localPosition = new Vector3(x_offset, y_offset, 0);
+                    }
                 }
                 else if (GameManager.GetHighResolutionTimerManager().GetElapsedMinutes() - elapsedMinutes >= 0.1d)
                 {

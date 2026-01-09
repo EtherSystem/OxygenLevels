@@ -12,17 +12,16 @@ namespace OxygenLevels
         //interloperHUDpro
         [Section("HUD Settings")]
 
-        [Name("Elevation")]
-        [Description("A game restart will be required. Set it to 100 if you're using InterloperHUDpro. Otherwise, leave it at 20.")]
-        [Slider(20, 100, 2)]
-        public int elevationHUD = 20;
-        
+        [Name("Using InterloperHUDpro ?")]
+        [Description("A game restart will be required.")]
+        public bool interHUD = false;
+
         //Low o₂
         [Section("Low o₂")]
 
         [Name("Altitude threshold")]
         [Description("Base = 360")]
-        [Slider(0, 600)]
+        [Slider(0, 700)]
         public float LowThreshold = 360f;
 
         [Name("Stamina recovery speed")]
@@ -56,7 +55,7 @@ namespace OxygenLevels
 
         [Name("Altitude threshold")]
         [Description("Base = 460")]
-        [Slider(0, 650)]
+        [Slider(0, 750)]
         public float CritThreshold = 460f;
 
         [Name("Stamina recovery speed")]
@@ -90,7 +89,7 @@ namespace OxygenLevels
 
         [Name("Altitude threshold")]
         [Description("Base = 580")]
-        [Slider(0, 700)]
+        [Slider(0, 800)]
         public float InsuThreshold = 580f;
 
         [Name("Stamina recovery speed")]
@@ -131,6 +130,7 @@ namespace OxygenLevels
         protected override void OnConfirm()
         {
             base.OnConfirm();
+            Core.isInterHUD = interHUD;
         }
     }
     internal static class Settings
@@ -141,6 +141,8 @@ namespace OxygenLevels
         { 
             options = new OxModSettings();
             options.AddToModSettings("OxygenLevels");
+            Core.isInterHUD = Settings.options.interHUD;
+
         }
     }
 }
