@@ -127,6 +127,16 @@ namespace OxygenLevels
         [Slider(1, 10)]
         public float InsuFireIgnitionMultiplier = 5f;
 
+        [Name("AMS appearance time")]
+        [Description("Base = 2 - ingame hours")]
+        [Slider(1, 10)]
+        public float AMSAppeanceTime = 2f;
+
+        [Name("AMS disappearance time")]
+        [Description("Base = 2 - ingame hours - If set to 1, the disappearance time will be the same as the appearance time. Set to 2, the disappearance time will be multiplied by 2, etc.")]
+        [Slider(1, 10)]
+        public float AMSDisappearanceTime = 2f;
+
         protected override void OnConfirm()
         {
             base.OnConfirm();

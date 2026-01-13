@@ -11,7 +11,7 @@
         "English": "Low oxygen - You feel weak",
         "French (France)": "Oxygène faible - Vous vous sentez faible",
         "Spanish (Spain)": "Bajo nivel de oxígeno - te sientes débil",
-        "German": "Sauerstoffmangel – Sie fühlen sich schwach",
+        "German": "Sauerstoffmangel – Du fühlst dich schwach",
         "Turkish": "Düşük oksijen seviyesi - Kendinizi halsiz hissedersiniz",
         "Russian": "Низкий уровень кислорода - Вы чувствуете слабость"
     },
@@ -19,7 +19,7 @@
         "English": "Critical oxygen - You are seriously weakened",
         "French (France)": "Oxygène critique - Vous êtes sérieusement affaibli",
         "Spanish (Spain)": "Oxígeno crítico - estás seriamente debilitado",
-        "German": "Kritischer Sauerstoffmangel – Sie sind ernsthaft geschwächt",
+        "German": "Kritischer Sauerstoffmangel – Du bist ernsthaft geschwächt",
         "Turkish": "Kritik oksijen seviyesi - Ciddi derecede bitap düştün",
         "Russian": "Критический уровень кислорода — вы серьезно ослаблены"
     },
@@ -35,7 +35,7 @@
         "English": "   Normal o₂",
         "French (France)": "   o₂ normal",
         "Spanish (Spain)": "   o₂ normal",
-        "German": "   Normaler o₂",
+        "German": "   o₂ normal",
         "Turkish": "   Normal o₂",
         "Russian": "   Нормальный о₂"
     },
@@ -43,7 +43,7 @@
         "English": "   Low o₂",
         "French (France)": "   o₂ faible",
         "Spanish (Spain)": "   Bajo o₂",
-        "German": "   Niedrig o₂",
+        "German": "   o₂ niedrig",
         "Turkish": "   Düşük o₂",
         "Russian": "   Низкий o₂"
     },
@@ -51,7 +51,7 @@
         "English": "   Critical o₂",
         "French (France)": "   o₂ critique",
         "Spanish (Spain)": "   O₂ crítico",
-        "German": "   Kritischer o₂",
+        "German": "   o₂ kritisch",
         "Turkish": "   Kritik o₂",
         "Russian": "   Критический o₂"
     },
@@ -59,7 +59,7 @@
         "English": "   Insufficient o₂",
         "French (France)": "   o₂ insuffisant",
         "Spanish (Spain)": "   O₂ insuficiente",
-        "German": "   Unzureichend O₂",
+        "German": "   O₂ unzureichend",
         "Turkish": "   Yetersiz o₂",
         "Russian": "   Недостаточно o₂"
     }

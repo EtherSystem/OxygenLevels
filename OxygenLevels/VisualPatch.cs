@@ -36,7 +36,6 @@ namespace OxygenLevels
             {
                 if (tempObject == null)
                 {
-                    // init
                     UISprite sprite = __instance.m_OuterBoxSprite.GetComponent<UISprite>();
                     GameObject spriteObject = sprite.gameObject;
 
@@ -46,8 +45,7 @@ namespace OxygenLevels
 
                     UILabel tempLabel = tempObject.AddComponent<UILabel>();
                     tempLabel.text = "Altitude";
-                    // tempLabel.color = Color.white;
-                    tempLabel.color = new Color(0.9f, 0.95f, 1f);  // Use an off white
+                    tempLabel.color = new Color(0.9f, 0.95f, 1f);
                     tempLabel.fontStyle = FontStyle.Normal;
                     tempLabel.font = GameManager.GetFontManager().GetUIFontForCharacterSet(CharacterSet.Latin);
                     tempLabel.fontSize = 32;
@@ -59,7 +57,6 @@ namespace OxygenLevels
                     tempLabel.alignment = NGUIText.Alignment.Left;
                     tempLabel.pivot = UIWidget.Pivot.Left;
 
-                    //int x_offset = -sprite.width / 2; // + tempLabel.width/2;
                     int x_offset = 50 - tempLabel.width;
                     if (Settings.options.interHUD == true)
                     {
@@ -74,20 +71,18 @@ namespace OxygenLevels
                 }
                 else if (GameManager.GetHighResolutionTimerManager().GetElapsedMinutes() - elapsedMinutes >= 0.1d)
                 {
-                    // update every 0.1 ingame minutes
                     UILabel tempLabel = tempObject.GetComponent<UILabel>();
                     if (tempLabel != null && GameManager.GetFreezingComponent() != null)
                     {
-                        int temp = (int)Math.Round(GameManager.GetFreezingComponent().CalculateBodyTemperature());
                         switch (Core.currentState)
                         {
                             case AltitudeState.Normal:
                                 tempLabel.text = Localization.Get("GAMEPLAY_NormalDisplay");
-                                tempLabel.color = new Color(0.9f, 0.95f, 1f);  // Use an off white
+                                tempLabel.color = new Color(0.9f, 0.95f, 1f);  // White
                                 break;
                             case AltitudeState.Weakened:
                                 tempLabel.text = Localization.Get("GAMEPLAY_LowDisplay");
-                                tempLabel.color = new Color(1f, 0.85f, 0.2f);  // Yellowish
+                                tempLabel.color = new Color(1f, 0.85f, 0.2f);  // Yellow
                                 break;
                             case AltitudeState.HeavyWeakened:
                                 tempLabel.text = Localization.Get("GAMEPLAY_CriticalDisplay");
