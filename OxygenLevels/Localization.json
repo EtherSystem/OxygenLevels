@@ -62,5 +62,21 @@
         "German": "   O₂ unzureichend",
         "Turkish": "   Yetersiz o₂",
         "Russian": "   Недостаточно o₂"
+    },
+    "GAMEPLAY_isAcclimatized": {
+        "English": "Your body has acclimatized to the altitude",
+        "French (France)": "Votre corps s'est acclimaté à l'altitude",
+        "Spanish (Spain)": "Tu cuerpo se ha aclimatado a la altitud",
+        "German": "Ihr Körper hat sich an die Höhe akklimatisiert",
+        "Turkish": "Vücudunuz yüksekliğe alıştı",
+        "Russian": "Ваш организм акклиматизировался к высоте"
+    },
+    "GAMEPLAY_isntAcclimatized": {
+        "English": "Your body is no longer acclimatized to the altitude",
+        "French (France)": "Votre corps n'est plus acclimaté à l'altitude",
+        "Spanish (Spain)": "Tu cuerpo ya no está aclimatado a la altitud",
+        "German": "Ihr Körper ist nicht mehr an die Höhe akklimatisiert",
+        "Turkish": "Vücudunuz artık yüksekliğe alışkın değil",
+        "Russian": "Ваш организм больше не акклиматизирован к высоте"
     }
 }
