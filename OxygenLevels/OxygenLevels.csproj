@@ -51,6 +51,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Include="Afflictions\AMS.cs" />
+		<Compile Include="Afflictions\AMSrisk.cs" />
 		<Compile Include="Core.cs" />
 		<Compile Include="OxModSettings.cs" />
 		<Compile Include="VisualPatch.cs" />
@@ -63,6 +65,9 @@
 	<ItemGroup>
 	  <Reference Include="ModComponent">
 	    <HintPath>$(TheLongDarkPath)\Mods\ModComponent.dll</HintPath>
+	  </Reference>
+	  <Reference Include="AfflictionComponent">
+		<HintPath>$(TheLongDarkPath)\Mods\AfflictionComponent.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 

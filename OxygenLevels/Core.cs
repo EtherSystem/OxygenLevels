@@ -1,12 +1,9 @@
-﻿using Il2Cpp;
-using Il2CppRewired;
-using Il2CppRewired.ComponentControls.Data;
-using MelonLoader;
-using UnityEngine;
+﻿using static OxygenLevels.Afflictions.AMSrisk;
+using static OxygenLevels.Afflictions.AMS;
+using AfflictionComponent.Components;
 using LocalizationUtilities;
-using ModComponent;
 
-[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.2.0", "EtherSystem", null)]
+[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.3.0", "EtherSystem", null)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 
 namespace OxygenLevels
@@ -35,6 +32,8 @@ namespace OxygenLevels
             LoggerInstance.Msg("takes a deep breath...");
             Settings.OnLoad();
         }
+        private static bool IsAMSActive => AMSAffliction.IsAMSActive;
+        public static float AMS_CHANCE = 4f;
         private float updateTimer = 0f;
         private readonly float baseDelayRecoverStam = 2f;
         private readonly float baseStaminaRegenRate = 500f;
@@ -49,6 +48,7 @@ namespace OxygenLevels
         private float acclimatationTimerHours = 0f;
         private bool isAcclimatized = false;
         private bool wasAcclimatizedLastFrame = false;
+        private float amsRollTimerHours = 0f;
 
         public enum AltitudeState { Normal, Weakened, HeavyWeakened, TooWeak }
         public static AltitudeState currentState = AltitudeState.Normal;
@@ -106,31 +106,62 @@ namespace OxygenLevels
             if (currentState == AltitudeState.TooWeak)
             {
                 timeSpentAtCritAltitude += gameHoursPassed;
-                timeSpentAtCritAltitude = Math.Min(timeSpentAtCritAltitude, 4f);
+                timeSpentAtCritAltitude = Math.Min(timeSpentAtCritAltitude, 10f);
             }
             else
             {
                 timeSpentAtCritAltitude -= (gameHoursPassed * Settings.options.AMSDisappearanceTime);
                 timeSpentAtCritAltitude = Mathf.Max(timeSpentAtCritAltitude, 0f);
             }
-            var cameraStatus = GameManager.GetCameraStatusEffects();
             if (timeSpentAtCritAltitude > 0f)
             {
-                if (timeSpentAtCritAltitude >= (SUFFOCATION_THRESHOLD_HOURS * Settings.options.AMSAppeanceTime))
+                if (timeSpentAtCritAltitude >= (SUFFOCATION_THRESHOLD_HOURS * Settings.options.AMSAppeanceTime) && !IsAMSActive && !isAcclimatized)
                 {
-                    cameraStatus.m_TriggerHeadachePulse = false;
-                    cameraStatus.m_TriggerSuffocationPulse = true;
+                    var mgr = AfflictionManager.GetAfflictionManagerInstance();
+                    if (mgr?.m_Afflictions == null) return;
+
+                    bool hasRisk = false;
+                    for (int i = 0; i < mgr.m_Afflictions.Count; i++)
+                    {
+                        var a = mgr.m_Afflictions[i];
+                        if (a == null) continue;
+
+                        if (a is AMSriskAffliction)
+                        {
+                            hasRisk = true;
+                            break;
+                        }
+                    }
+                    amsRollTimerHours += gameHoursPassed;
+                    if (amsRollTimerHours >= 1f)
+                    {
+                        amsRollTimerHours = 0f;
+
+                        float roll = UnityEngine.Random.Range(0f, 100f);
+                        if (!hasRisk && roll < AMS_CHANCE)
+                        {
+                            new AMSriskAffliction(AfflictionBodyArea.Head).Start();
+                        }
+                    }
                 }
                 else
                 {
-                    cameraStatus.m_TriggerHeadachePulse = true;
-                    cameraStatus.m_TriggerSuffocationPulse = false;
+                    amsRollTimerHours = 0f;
                 }
             }
             else
             {
-                cameraStatus.m_TriggerHeadachePulse = false;
-                cameraStatus.m_TriggerSuffocationPulse = false;
+                var mgr = AfflictionManager.GetAfflictionManagerInstance();
+                if (mgr?.m_Afflictions == null) return;
+
+                for (int i = mgr.m_Afflictions.Count - 1; i >= 0; i--)
+                {
+                    var a = mgr.m_Afflictions[i];
+                    if (a == null) continue;
+
+                    if (a is AMSAffliction || a is AMSriskAffliction)
+                        a.Cure();
+                }
             }
 
             var isWalking = GameManager.GetPlayerManagerComponent().PlayerIsWalking();

@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HarmonyLib;
-using Il2Cpp;
-using Il2CppRewired.ComponentControls.Data;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using static OxygenLevels.Core;
+﻿using static OxygenLevels.Core;
 
 namespace OxygenLevels
 {
