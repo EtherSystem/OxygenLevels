@@ -14,7 +14,6 @@ namespace OxygenLevels.Afflictions
                 return;//MelonLogger.Msg("AMS duplication");
             }
 
-            private readonly float m_LastUpdateTime;
             public static bool IsAMSActive { get; private set; } = false;
 
             public Tuple<string, int, int>[] RemedyItems { get; set; } = Array.Empty<Tuple<string, int, int>>();
@@ -24,7 +23,6 @@ namespace OxygenLevels.Afflictions
 
             public AMSAffliction(AfflictionBodyArea bodyArea) : base("AMS", "Altitude", "The AMS has fully developed, your brain functions have severely deteriorated.", null, "ico_injury_headache", bodyArea) //customsprite :OxygenLevels.Resources.Icons.AMS.png
             {
-                m_LastUpdateTime = GameManager.GetTimeOfDayComponent().GetHoursPlayedNotPaused();
             }
 
             public void CureSymptoms()
