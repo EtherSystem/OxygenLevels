@@ -54,12 +54,7 @@ Spending extended time at extreme altitude **may** trigger:
 - **AMS Risk**
 - **AMS**
 
-The system:
-
-- Tracks time spent at critical altitude
-- Rolls a configurable chance periodically
-- Applies AMS Risk first
-- Automatically cures AMS if the player remains below the last altitude state for too long
+Spending extrended time at lower altitude **will** cure the AMS.
 
 Acclimatized players are protected from AMS onset.
 
@@ -90,3 +85,4 @@ If you notice inconsistencies or translation issues, feedback is welcome.
 1.  Install MelonLoader.
 2.  Install  [AfflictionComponent](https://github.com/TLD-Mods/AfflictionComponent),  [ModComponent](https://github.com/dommrogers/ModComponent)  and  [ModSettings](https://github.com/DigitalzombieTLD/ModSettings/).
 3.  Place  `OxygenLevels.dll`  inside your Mods folder.
+
