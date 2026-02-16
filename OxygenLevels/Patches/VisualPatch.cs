@@ -1,6 +1,6 @@
 ﻿using static OxygenLevels.Core;
 
-namespace OxygenLevels
+namespace OxygenLevels.Patches
 {
     internal static class Patches
     {
@@ -64,7 +64,7 @@ namespace OxygenLevels
                     UILabel tempLabel = tempObject.GetComponent<UILabel>();
                     if (tempLabel != null && GameManager.GetFreezingComponent() != null)
                     {
-                        switch (Core.currentState)
+                        switch (currentState)
                         {
                             case AltitudeState.Normal:
                                 tempLabel.text = Localization.Get("GAMEPLAY_NormalDisplay");

@@ -3,7 +3,7 @@ using static OxygenLevels.Afflictions.AMS;
 using AfflictionComponent.Components;
 using LocalizationUtilities;
 
-[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.3.0", "EtherSystem", null)]
+[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.3.1", "EtherSystem", null)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 
 namespace OxygenLevels
@@ -18,7 +18,7 @@ namespace OxygenLevels
         {
             string? result = null;
 
-            Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("OxygenLevels.Localization.json");
+            Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("OxygenLevels.Resources.Localization.Localization.json");
             if (stream != null)
             {
                 StreamReader reader = new StreamReader(stream);

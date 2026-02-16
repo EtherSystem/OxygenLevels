@@ -55,11 +55,12 @@
 		<Compile Include="Afflictions\AMSrisk.cs" />
 		<Compile Include="Core.cs" />
 		<Compile Include="OxModSettings.cs" />
-		<Compile Include="VisualPatch.cs" />
+		<Compile Include="Patches\RepairOnCrashPatch.cs" />
+		<Compile Include="Patches\VisualPatch.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Localization.json" />
+	  <EmbeddedResource Include="Resources\Localization\Localization.json" />
 	</ItemGroup>
 
 	<ItemGroup>
