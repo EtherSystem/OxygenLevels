@@ -1,18 +1,18 @@
-﻿﻿using Description = ModSettings.DescriptionAttribute;
+﻿using Description = ModSettings.DescriptionAttribute;
 using System.ComponentModel;
 
 namespace OxygenLevels
 {
     internal class OxModSettings : JsonModSettings
     {
-        //interloperHUDpro
+        // HUD
         [Section("HUD Settings")]
 
         [Name("Using InterloperHUDpro ?")]
-        [Description("A game restart will be required.")]
+        [Description("prevents HUDs from overlapping.")]
         public bool interHUD = false;
 
-        //Acclimatization
+        // Acclimatization
         [Section("Acclimatization")]
 
         [Name("Time needed to acclimatize")]
@@ -20,8 +20,13 @@ namespace OxygenLevels
         [Slider(1, 72)]
         public float AcclimatizationTimer = 24f;
 
-        //Low o₂
-        [Section("Low o₂")]
+        // O₂ levels
+        [Section("O₂ Effects")]
+
+        [Name("Low o₂")]
+        [Description("Show or hide Low o₂ settings.")]
+        [Choice("+", "-")]
+        public bool LowO2 = false;
 
         [Name("Altitude threshold")]
         [Description("Base = 360")]
@@ -68,8 +73,11 @@ namespace OxygenLevels
         [Slider(1.5f, 20)]
         public float LowFoodPoisoningRecoveryTimeMultiplier = 1.5f;
 
-        //Critical o₂
-        [Section("Critical o₂")]
+
+        [Name("Critical o₂")]
+        [Description("Show or hide Critical o₂ settings.")]
+        [Choice("+", "-")]
+        public bool CriticalO2 = false;
 
         [Name("Altitude threshold")]
         [Description("Base = 460")]
@@ -116,8 +124,11 @@ namespace OxygenLevels
         [Slider(2, 20)]
         public float CritFoodPoisoningRecoveryTimeMultiplier = 2f;
 
-        //Insufficient o₂
-        [Section("Insufficient o₂")]
+
+        [Name("Insufficient o₂")]
+        [Description("Show or hide Insufficient o₂ settings.")]
+        [Choice("+", "-")]
+        public bool InsufficientO2 = false;
 
         [Name("Altitude threshold")]
         [Description("Base = 580")]
@@ -184,22 +195,74 @@ namespace OxygenLevels
         [Slider(1, 10)]
         public float AMSDisappearanceTime = 2f;
 
+
+        internal void RefreshFields()
+        {
+            // Low o₂
+            SetFieldVisible(nameof(LowThreshold), LowO2);
+            SetFieldVisible(nameof(LowStaminaMultiplier), LowO2);
+            SetFieldVisible(nameof(LowStaminaConsumptionMultiplier), LowO2);
+            SetFieldVisible(nameof(LowMinFatigueBurnMultiplier), LowO2);
+            SetFieldVisible(nameof(LowMaxFatigueBurnMultiplier), LowO2);
+            SetFieldVisible(nameof(LowFireIgnitionMultiplier), LowO2);
+            SetFieldVisible(nameof(LowSecondsBeforeRecovStamMultiplier), LowO2);
+            SetFieldVisible(nameof(LowDysenteryRecoveryTimeMultiplier), LowO2);
+            SetFieldVisible(nameof(LowFoodPoisoningRecoveryTimeMultiplier), LowO2);
+
+            // Critical o₂
+            SetFieldVisible(nameof(CritThreshold), CriticalO2);
+            SetFieldVisible(nameof(CritStaminaMultiplier), CriticalO2);
+            SetFieldVisible(nameof(CritStaminaConsumptionMultiplier), CriticalO2);
+            SetFieldVisible(nameof(CritMinFatigueBurnMultiplier), CriticalO2);
+            SetFieldVisible(nameof(CritMaxFatigueBurnMultiplier), CriticalO2);
+            SetFieldVisible(nameof(CritFireIgnitionMultiplier), CriticalO2);
+            SetFieldVisible(nameof(CritSecondsBeforeRecovStamMultiplier), CriticalO2);
+            SetFieldVisible(nameof(CritDysenteryRecoveryTimeMultiplier), CriticalO2);
+            SetFieldVisible(nameof(CritFoodPoisoningRecoveryTimeMultiplier), CriticalO2);
+
+            // Insufficient o₂
+            SetFieldVisible(nameof(InsuThreshold), InsufficientO2);
+            SetFieldVisible(nameof(InsuStaminaMultiplier), InsufficientO2);
+            SetFieldVisible(nameof(InsuStaminaConsumptionMultiplier), InsufficientO2);
+            SetFieldVisible(nameof(InsuMinFatigueBurnMultiplier), InsufficientO2);
+            SetFieldVisible(nameof(InsuMaxFatigueBurnMultiplier), InsufficientO2);
+            SetFieldVisible(nameof(InsuFireIgnitionMultiplier), InsufficientO2);
+            SetFieldVisible(nameof(InsuSecondsBeforeRecovStamMultiplier), InsufficientO2);
+            SetFieldVisible(nameof(InsuDysenteryRecoveryTimeMultiplier), InsufficientO2);
+            SetFieldVisible(nameof(InsuFoodPoisoningRecoveryTimeMultiplier), InsufficientO2);
+            SetFieldVisible(nameof(InsuStaminaWalkingBurn), InsufficientO2);
+            SetFieldVisible(nameof(ConditionLostZeroStamina), InsufficientO2);
+            SetFieldVisible(nameof(AMSAppeanceTime), InsufficientO2);
+            SetFieldVisible(nameof(AMSDisappearanceTime), InsufficientO2);
+        }
+
+        protected override void OnChange(FieldInfo field, object? oldValue, object? newValue)
+        {
+            RefreshFields();
+        }
+
         protected override void OnConfirm()
         {
             base.OnConfirm();
             Core.isInterHUD = interHUD;
+
+            Settings.RequestAltitudeHUDReposition = true;
         }
     }
+
     internal static class Settings
     {
         public static OxModSettings options;
+        public static bool RequestAltitudeHUDReposition;
 
         public static void OnLoad()
-        { 
+        {
             options = new OxModSettings();
             options.AddToModSettings("OxygenLevels");
-            Core.isInterHUD = Settings.options.interHUD;
 
+            options.RefreshFields();
+
+            Core.isInterHUD = options.interHUD;
         }
     }
 }

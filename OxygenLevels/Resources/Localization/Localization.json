@@ -78,5 +78,46 @@
         "German": "Ihr Körper ist nicht mehr an die Höhe akklimatisiert",
         "Turkish": "Vücudunuz artık yüksekliğe alışkın değil",
         "Russian": "Ваш организм больше не акклиматизирован к высоте"
+    },
+
+    "GAMEPLAY_AMSriskName": {
+        "English": "AMS Risk",
+        "French (France)": "Risque de MAM",
+        "Spanish (Spain)": "Riesgo de MAM",
+        "German": "Risiko für AH",
+        "Turkish": "ADH Riski",
+        "Russian": "Риск ОГБ"
+    },
+    "GAMEPLAY_AMSriskDescription": {
+        "English": "The lack of oxygen is starting to become a concern. You risk developing an AMS, descend as soon as possible.",
+        "French (France)": "Le manque d'oxygène commence à être préoccupant. Vous risquez de développer un MAM, descendez dès que possible.",
+        "Spanish (Spain)": "La falta de oxígeno empieza a ser preocupante. Corre el riesgo de desarrollar un MAM, así que descienda lo antes posible.",
+        "German": "Der Sauerstoffmangel wird zunehmend besorgniserregend. Sie laufen Gefahr, an AH zu erkranken – steigen Sie so schnell wie möglich ab.",
+        "Turkish": "Oksijen eksikliği endişe verici olmaya başladı. ADH geliştirme riski altındasınız; mümkün olan en kısa sürede alçalın.",
+        "Russian": "Нехватка кислорода начинает вызывать беспокойство. Вы рискуете заработать ОГБ — спускайтесь как можно скорее."
+    },
+    "GAMEPLAY_AMSName": {
+        "English": "AMS",
+        "French (France)": "MAM",
+        "Spanish (Spain)": "MAM",
+        "German": "AH",
+        "Turkish": "ADH",
+        "Russian": "ОГБ"
+    },
+    "GAMEPLAY_AMSCause": {
+        "English": "Altitude",
+        "French (France)": "Altitude",
+        "Spanish (Spain)": "Altitud",
+        "German": "Höhe",
+        "Turkish": "Rakım",
+        "Russian": "Высота"
+    },
+    "GAMEPLAY_AMSDescription": {
+        "English": "The AMS has fully developed, your brain functions have severely deteriorated.",
+        "French (France)": "Le MAM s'est pleinement développé, vos fonctions cérébrales se sont gravement détériorées.",
+        "Spanish (Spain)": "El MAM se ha desarrollado completamente, sus funciones cerebrales se han deteriorado gravemente.",
+        "German": "Die AH ist voll ausgeprägt, Ihre Gehirnfunktionen haben sich stark verschlechtert.",
+        "Turkish": "ADH tamamen gelişti, beyin işlevleriniz ciddi şekilde bozuldu.",
+        "Russian": "ОГБ полностью развилась, функции вашего мозга серьёзno ухудшились."
     }
 }

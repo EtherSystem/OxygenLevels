@@ -21,7 +21,7 @@ namespace OxygenLevels.Afflictions
 
             public bool InstantHeal { get; set; } = true;
 
-            public AMSAffliction(AfflictionBodyArea bodyArea) : base("AMS", "Altitude", "The AMS has fully developed, your brain functions have severely deteriorated.", null, "ico_injury_headache", bodyArea) //customsprite :OxygenLevels.Resources.Icons.AMS.png
+            public AMSAffliction(AfflictionBodyArea bodyArea) : base("GAMEPLAY_AMSName", "GAMEPLAY_AMSCause", "GAMEPLAY_AMSDescription", null, "OxygenLevels.Resources.Icons.AMS.png", bodyArea, true)
             {
             }
 

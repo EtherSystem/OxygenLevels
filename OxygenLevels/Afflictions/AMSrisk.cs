@@ -24,7 +24,7 @@ namespace OxygenLevels.Afflictions
 
             public bool InstantHeal { get; set; } = true;
 
-            public AMSriskAffliction(AfflictionBodyArea bodyArea) : base("AMS Risk", "Altitude", "The lack of oxygen is starting to become a concern. You risk developing an AMS, descend as soon as possible", null, "ico_injury_pain", bodyArea) //customsprite :OxygenLevels.Resources.Icons.AMSrisk.png
+            public AMSriskAffliction(AfflictionBodyArea bodyArea) : base("GAMEPLAY_AMSriskCause", "GAMEPLAY_AMSCause", "GAMEPLAY_AMSriskDescription", null, "OxygenLevels.Resources.Icons.AMSrisk.png", bodyArea, true)
             {
                 m_LastUpdateTime = GameManager.GetTimeOfDayComponent().GetHoursPlayedNotPaused();
             }

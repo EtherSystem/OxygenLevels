@@ -3,7 +3,7 @@ using static OxygenLevels.Afflictions.AMS;
 using AfflictionComponent.Components;
 using LocalizationUtilities;
 
-[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.3.1", "EtherSystem", null)]
+[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.4.0", "EtherSystem, Flower Field", null)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 
 namespace OxygenLevels
@@ -31,6 +31,17 @@ namespace OxygenLevels
             LocalizationManager.LoadJsonLocalization(LoadEmbeddedJSON("Localization.json"));
             LoggerInstance.Msg("takes a deep breath...");
             Settings.OnLoad();
+
+            // you need to be at the last threshold to apply em
+            uConsole.RegisterCommand("ams", new Action(() =>
+            {
+                new AMSAffliction(AfflictionBodyArea.Head).Start();
+            }));
+
+            uConsole.RegisterCommand("amsrisk", new Action(() =>
+            {
+                new AMSriskAffliction(AfflictionBodyArea.Head).Start();
+            }));
         }
         private static bool IsAMSActive => AMSAffliction.IsAMSActive;
         public static float AMS_CHANCE = 4f;

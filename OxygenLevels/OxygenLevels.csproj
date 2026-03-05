@@ -16,6 +16,8 @@
 
 	<ItemGroup>
 	  <None Remove="Localization.json" />
+	  <None Remove="Resources\Icons\AMS.png" />
+	  <None Remove="Resources\Icons\AMSrisk.png" />
 	</ItemGroup>	
 	
 	<!-- List of used references -->
@@ -55,11 +57,12 @@
 		<Compile Include="Afflictions\AMSrisk.cs" />
 		<Compile Include="Core.cs" />
 		<Compile Include="OxModSettings.cs" />
-		<Compile Include="Patches\RepairOnCrashPatch.cs" />
 		<Compile Include="Patches\VisualPatch.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Icons\AMS.png" />
+	  <EmbeddedResource Include="Resources\Icons\AMSrisk.png" />
 	  <EmbeddedResource Include="Resources\Localization\Localization.json" />
 	</ItemGroup>
 

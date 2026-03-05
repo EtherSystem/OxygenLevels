@@ -5,15 +5,18 @@ namespace OxygenLevels.Patches
     internal static class Patches
     {
         private static Color darkRed = new Color(0.8f, 0.2f, 0.23f, 1.000f);
+
         [HarmonyPatch(typeof(StatusBar), "Update")]
         private static class AltitudeMetter
         {
             public static double elapsedMinutes = 0d;
             public static GameObject tempObject;
 
+            private static int _cachedXOffset;
+            private static bool _hasCachedXOffset;
+
             private static void Postfix(StatusBar __instance)
             {
-                //if (__instance.m_StatusBarType != StatusBar.StatusBarType.Hunger) return;
                 if (!__instance.m_IsOnHUD) return;
 
                 if (__instance.m_StatusBarType == StatusBar.StatusBarType.Cold)
@@ -48,42 +51,54 @@ namespace OxygenLevels.Patches
                     tempLabel.pivot = UIWidget.Pivot.Left;
 
                     int x_offset = 50 - tempLabel.width;
-                    if (Settings.options.interHUD == true)
-                    {
-                        int y_offset = 100 + tempLabel.height;
-                        tempObject.transform.localPosition = new Vector3(x_offset, y_offset, 0);
-                    }
-                    else
-                    {
-                        int y_offset = 20 + tempLabel.height;
-                        tempObject.transform.localPosition = new Vector3(x_offset, y_offset, 0);
-                    }
+
+                    _cachedXOffset = x_offset;
+                    _hasCachedXOffset = true;
+
+                    int y_offset = (Settings.options.interHUD ? 100 : 20) + tempLabel.height;
+                    tempObject.transform.localPosition = new Vector3(x_offset, y_offset, 0);
                 }
-                else if (GameManager.GetHighResolutionTimerManager().GetElapsedMinutes() - elapsedMinutes >= 0.1d)
+                else
                 {
-                    UILabel tempLabel = tempObject.GetComponent<UILabel>();
-                    if (tempLabel != null && GameManager.GetFreezingComponent() != null)
+                    if (Settings.RequestAltitudeHUDReposition && _hasCachedXOffset)
                     {
-                        switch (currentState)
+                        UILabel tempLabel = tempObject.GetComponent<UILabel>();
+                        if (tempLabel != null)
                         {
-                            case AltitudeState.Normal:
-                                tempLabel.text = Localization.Get("GAMEPLAY_NormalDisplay");
-                                tempLabel.color = new Color(0.9f, 0.95f, 1f);  // White
-                                break;
-                            case AltitudeState.Weakened:
-                                tempLabel.text = Localization.Get("GAMEPLAY_LowDisplay");
-                                tempLabel.color = new Color(1f, 0.85f, 0.2f);  // Yellow
-                                break;
-                            case AltitudeState.HeavyWeakened:
-                                tempLabel.text = Localization.Get("GAMEPLAY_CriticalDisplay");
-                                tempLabel.color = darkRed;
-                                break;
-                            case AltitudeState.TooWeak:
-                                tempLabel.text = Localization.Get("GAMEPLAY_InsufficientDisplay");
-                                tempLabel.color = darkRed;
-                                break;
+                            int y_offset = (Settings.options.interHUD ? 100 : 20) + tempLabel.height;
+                            tempObject.transform.localPosition = new Vector3(_cachedXOffset, y_offset, 0);
                         }
-                        elapsedMinutes = GameManager.GetHighResolutionTimerManager().GetElapsedMinutes();
+
+                        Settings.RequestAltitudeHUDReposition = false;
+                    }
+
+                    if (GameManager.GetHighResolutionTimerManager().GetElapsedMinutes() - elapsedMinutes >= 0.1d)
+                    {
+                        UILabel tempLabel = tempObject.GetComponent<UILabel>();
+                        if (tempLabel != null && GameManager.GetFreezingComponent() != null)
+                        {
+                            switch (currentState)
+                            {
+                                case AltitudeState.Normal:
+                                    tempLabel.text = Localization.Get("GAMEPLAY_NormalDisplay");
+                                    tempLabel.color = new Color(0.9f, 0.95f, 1f);
+                                    break;
+                                case AltitudeState.Weakened:
+                                    tempLabel.text = Localization.Get("GAMEPLAY_LowDisplay");
+                                    tempLabel.color = new Color(1f, 0.85f, 0.2f);
+                                    break;
+                                case AltitudeState.HeavyWeakened:
+                                    tempLabel.text = Localization.Get("GAMEPLAY_CriticalDisplay");
+                                    tempLabel.color = darkRed;
+                                    break;
+                                case AltitudeState.TooWeak:
+                                    tempLabel.text = Localization.Get("GAMEPLAY_InsufficientDisplay");
+                                    tempLabel.color = darkRed;
+                                    break;
+                            }
+
+                            elapsedMinutes = GameManager.GetHighResolutionTimerManager().GetElapsedMinutes();
+                        }
                     }
                 }
             }
