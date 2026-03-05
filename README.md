@@ -1,10 +1,88 @@
-OxygenLevels is my very first mod for The Long Dark. It introduces a mechanic that simulates oxygen deprivation based on the player's altitude.
 
-This mod adjusts stamina regeneration rate, stamina and fatigue consumption during sprints, and fire starting, based on 4 altitude levels relative to the player's altitude. *It also adds some fun stuff at the last level c:*
+# OxygenLevels
 
-I'll try to make an Oxygen Mask / Oxygen Tank to prevent the effects of altitude in the future (Soon™ trust).
+OxygenLevels introduces altitude-based oxygen deprivation to The Long Dark.
 
-It's also translated in 6 differents languages : English, French, German, Spanish, Turkish and Russian. Please feel free to contact me if any translation seems strange or incorrect, I'll correct it.
+As altitude increases, available oxygen decreases.  
+Reduced oxygen impacts stamina, fatigue, and physical performance.
 
-Highly customizable, the mod requires AfflictionComponent, ModSettings and ModComponent to work.
+## How It Works
+
+### Altitude States
+
+The system evaluates the player's vertical position and applies one of four states:
+
+- **Normal**
+- **Low**
+- **Critical**
+- **Insufficient**
+
+Each state dynamically modifies gameplay parameters.
+Transitions between states trigger localized HUD warnings.
+All altitude state thresholds can be modified.
+
+### Gameplay Effects
+
+Depending on altitude tier, the mod adjusts the following values:
+
+- Stamina regeneration rate
+- Stamina consumption while sprinting
+- Fatigue increase while sprinting
+- Delay before stamina recovery
+- Fire starting duration
+- Dysentery recovery duration
+- Food poisoning recovery duration
+
+Effects are modulated according to the altitude state, but are highly customizable.
+
+At extreme altitude, walking depletes endurance, and walking without endurance result in direct condition loss.
+
+### Acclimatization System
+
+Remaining at high altitude gradually builds acclimatization.
+
+Once fully acclimatized, penalties in critical states are partially reduced.
+
+Descending reduces acclimatization over time.
+
+Acclimatization is fully configurable via settings.
+
+### Acute Mountain Sickness (AMS)
+
+Spending extended time at extreme altitude **may** trigger:
+
+- **AMS Risk**
+- **AMS**
+
+Spending extrended time at lower altitude **will** cure the AMS.
+
+Acclimatized players are protected from AMS onset.
+
+
+## Planned Features (SoonTM trust)
+
+A Oxygen Mask / Oxygen Tank item is planned for a future update.
+
+The goal is to allow players to temporarily mitigate altitude penalties.
+
+
+## Localization
+
+OxygenLevels is currently available in:
+
+- English  
+- French  
+- German  
+- Spanish  
+- Turkish  
+- Russian  
+
+If you notice inconsistencies or translation issues, feedback is welcome.
+
+## Installation
+
+
+1.  Install MelonLoader.
+2.  Install  [AfflictionComponent](https://github.com/TLD-Mods/AfflictionComponent),  [ModComponent](https://github.com/dommrogers/ModComponent)  and  [ModSettings](https://github.com/DigitalzombieTLD/ModSettings/).
+3.  Place  `OxygenLevels.dll`  inside your Mods folder.
 
