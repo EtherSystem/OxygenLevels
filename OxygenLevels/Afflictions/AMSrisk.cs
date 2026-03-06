@@ -24,7 +24,7 @@ namespace OxygenLevels.Afflictions
 
             public bool InstantHeal { get; set; } = true;
 
-            public AMSriskAffliction(AfflictionBodyArea bodyArea) : base("GAMEPLAY_AMSriskCause", "GAMEPLAY_AMSCause", "GAMEPLAY_AMSriskDescription", null, "OxygenLevels.Resources.Icons.AMSrisk.png", bodyArea, true)
+            public AMSriskAffliction(AfflictionBodyArea bodyArea) : base("GAMEPLAY_AMSriskName", "GAMEPLAY_AMSCause", "GAMEPLAY_AMSriskDescription", null, "OxygenLevels.Resources.Icons.AMSrisk.png", bodyArea, true)
             {
                 m_LastUpdateTime = GameManager.GetTimeOfDayComponent().GetHoursPlayedNotPaused();
             }

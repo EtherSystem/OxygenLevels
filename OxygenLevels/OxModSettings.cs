@@ -185,6 +185,11 @@ namespace OxygenLevels
         [Slider(0.5f, 10f, 95)]
         public float ConditionLostZeroStamina = 0.5f;
 
+        [Name("AMS chance")]
+        [Description("Base = 4% - this roll every in-game hours.")]
+        [Slider(1, 100, 99, NumberFormat = "{0}%")]
+        public int AMSchance = 4;
+
         [Name("AMS appearance time")]
         [Description("Base = 2 in-game hours - This is the time from which AMS CAN appear.")]
         [Slider(1, 10)]
@@ -234,6 +239,7 @@ namespace OxygenLevels
             SetFieldVisible(nameof(ConditionLostZeroStamina), InsufficientO2);
             SetFieldVisible(nameof(AMSAppeanceTime), InsufficientO2);
             SetFieldVisible(nameof(AMSDisappearanceTime), InsufficientO2);
+            SetFieldVisible(nameof(AMSchance), InsufficientO2);
         }
 
         protected override void OnChange(FieldInfo field, object? oldValue, object? newValue)

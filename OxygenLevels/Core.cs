@@ -44,7 +44,6 @@ namespace OxygenLevels
             }));
         }
         private static bool IsAMSActive => AMSAffliction.IsAMSActive;
-        public static float AMS_CHANCE = 4f;
         private float updateTimer = 0f;
         private readonly float baseDelayRecoverStam = 2f;
         private readonly float baseStaminaRegenRate = 500f;
@@ -153,7 +152,7 @@ namespace OxygenLevels
                         amsRollTimerHours = 0f;
 
                         float roll = UnityEngine.Random.Range(0f, 100f);
-                        if (!hasAMSRisk && roll < AMS_CHANCE)
+                        if (!hasAMSRisk && roll < Settings.options.AMSchance)
                         {
                             new AMSriskAffliction(AfflictionBodyArea.Head).Start();
                         }
