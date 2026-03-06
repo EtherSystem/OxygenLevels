@@ -186,7 +186,7 @@ namespace OxygenLevels
         public float ConditionLostZeroStamina = 0.5f;
 
         [Name("AMS appearance time")]
-        [Description("Base = 2 - ingame hours")]
+        [Description("Base = 2 in-game hours - This is the time from which AMS CAN appear.")]
         [Slider(1, 10)]
         public float AMSAppeanceTime = 2f;
 

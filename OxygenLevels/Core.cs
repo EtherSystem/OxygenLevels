@@ -3,7 +3,7 @@ using static OxygenLevels.Afflictions.AMS;
 using AfflictionComponent.Components;
 using LocalizationUtilities;
 
-[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.4.0", "EtherSystem, Flower Field", null)]
+[assembly: MelonInfo(typeof(OxygenLevels.Core), "OxygenLevels", "1.4.1", "EtherSystem, Flower Field", null)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
 
 namespace OxygenLevels
@@ -59,7 +59,22 @@ namespace OxygenLevels
         private float acclimatationTimerHours = 0f;
         private bool isAcclimatized = false;
         private bool wasAcclimatizedLastFrame = false;
+        private bool lastAppliedAcclimatized = false;
         private float amsRollTimerHours = 0f;
+
+        private static bool HasAffliction<T>() where T : class
+        {
+            var mgr = AfflictionManager.GetAfflictionManagerInstance();
+            if (mgr?.m_Afflictions == null) return false;
+
+            for (int i = 0; i < mgr.m_Afflictions.Count; i++)
+            {
+                var a = mgr.m_Afflictions[i];
+                if (a is T) return true;
+            }
+
+            return false;
+        }
 
         public enum AltitudeState { Normal, Weakened, HeavyWeakened, TooWeak }
         public static AltitudeState currentState = AltitudeState.Normal;
@@ -88,9 +103,13 @@ namespace OxygenLevels
             float yValue = isIndoors ? lastOutdoorAltitude : rawY;
 
             float gameHoursPassed = GameManager.GetTimeOfDayComponent().GetTODHours(realTimeElapsed);
-            float HOURS_TO_ACCLIMATIZE = (Settings.options.AcclimatizationTimer);
+            float HOURS_TO_ACCLIMATIZE = Settings.options.AcclimatizationTimer;
 
-            if (currentState >= AltitudeState.HeavyWeakened)
+            bool hasAMSRisk = HasAffliction<AMSriskAffliction>();
+            bool hasAMS = IsAMSActive || HasAffliction<AMSAffliction>();
+            bool blockAcclimatization = hasAMSRisk || hasAMS;
+
+            if (!blockAcclimatization && currentState >= AltitudeState.HeavyWeakened)
             {
                 acclimatationTimerHours += gameHoursPassed;
             }
@@ -98,9 +117,9 @@ namespace OxygenLevels
             {
                 acclimatationTimerHours -= gameHoursPassed * 2f;
             }
+
             acclimatationTimerHours = Mathf.Clamp(acclimatationTimerHours, 0f, HOURS_TO_ACCLIMATIZE);
             isAcclimatized = (acclimatationTimerHours >= HOURS_TO_ACCLIMATIZE);
-            //MelonLogger.Msg("base : " + acclimatationTimerHours);
 
             if (isAcclimatized && !wasAcclimatizedLastFrame)
             {
@@ -128,28 +147,13 @@ namespace OxygenLevels
             {
                 if (timeSpentAtCritAltitude >= (SUFFOCATION_THRESHOLD_HOURS * Settings.options.AMSAppeanceTime) && !IsAMSActive && !isAcclimatized)
                 {
-                    var mgr = AfflictionManager.GetAfflictionManagerInstance();
-                    if (mgr?.m_Afflictions == null) return;
-
-                    bool hasRisk = false;
-                    for (int i = 0; i < mgr.m_Afflictions.Count; i++)
-                    {
-                        var a = mgr.m_Afflictions[i];
-                        if (a == null) continue;
-
-                        if (a is AMSriskAffliction)
-                        {
-                            hasRisk = true;
-                            break;
-                        }
-                    }
                     amsRollTimerHours += gameHoursPassed;
                     if (amsRollTimerHours >= 1f)
                     {
                         amsRollTimerHours = 0f;
 
                         float roll = UnityEngine.Random.Range(0f, 100f);
-                        if (!hasRisk && roll < AMS_CHANCE)
+                        if (!hasAMSRisk && roll < AMS_CHANCE)
                         {
                             new AMSriskAffliction(AfflictionBodyArea.Head).Start();
                         }
@@ -204,9 +208,13 @@ namespace OxygenLevels
             else if (yValue >= Settings.options.LowThreshold) newState = AltitudeState.Weakened;
             else newState = AltitudeState.Normal;
 
-            if (newState != currentState)
+            bool shouldRefresh = (newState != currentState) || (isAcclimatized != lastAppliedAcclimatized);
+
+            if (shouldRefresh)
             {
                 currentState = newState;
+                lastAppliedAcclimatized = isAcclimatized;
+
                 float staminaMultiplier = 1f;
                 float staminaConsumptionMultiplier = 1f;
                 float maxFatigueBurnMultiplier = 1f;
