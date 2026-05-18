@@ -29,7 +29,7 @@
         "Spanish (Spain)": "Eres demasiado débil...",
         "German": "Du bist viel zu schwach...",
         "Turkish": "Çok güçsüzsün...",
-        "Russian": "Ты слишком слаб..."
+        "Russian": "Вы слишком слабы..."
     },
     "GAMEPLAY_NormalDisplay": {
         "English": "   Normal o₂",
@@ -119,5 +119,54 @@
         "German": "Die AH ist voll ausgeprägt, Ihre Gehirnfunktionen haben sich stark verschlechtert.",
         "Turkish": "ADH tamamen gelişti, beyin işlevleriniz ciddi şekilde bozuldu.",
         "Russian": "ОГБ полностью развилась, функции вашего мозга серьёзno ухудшились."
+    },
+
+    "GAMEPLAY_AcclimatizedIBuffName": {
+        "English": "Acclimatized I",
+        "French (France)": "Acclimaté I",
+        "Spanish (Spain)": "Aclimatado I",
+        "German": "Akklimatisiert I",
+        "Turkish": "İklime Alışmış I",
+        "Russian": "Акклиматизирован I"
+    },
+    "GAMEPLAY_AcclimatizedIBuffCause": {
+        "English": "Prolonged exposure to critical oxygen levels",
+        "French (France)": "Exposition prolongée à un niveau d'oxygène critique",
+        "Spanish (Spain)": "Exposición prolongada a niveles críticos de oxígeno",
+        "German": "Längere Belastung durch kritischen Sauerstoffmangel",
+        "Turkish": "Kritik oksijen seviyelerine uzun süre maruz kalma",
+        "Russian": "Длительное воздействие критического уровня кислорода"
+    },
+    "GAMEPLAY_AcclimatizedIBuffDescription": {
+        "English": "Your body is beginning to adapt to oxygen-poor environments. Altitude affects you less than before.",
+        "French (France)": "Votre organisme commence à s'habituer aux environnements pauvres en oxygène. L'altitude vous affecte moins qu'auparavant.",
+        "Spanish (Spain)": "Tu organismo empieza a acostumbrarse a los entornos pobres en oxígeno. La altitud te afecta menos que antes.",
+        "German": "Dein Körper beginnt, sich an sauerstoffarme Umgebungen zu gewöhnen. Die Höhe beeinträchtigt dich weniger als zuvor.",
+        "Turkish": "Vücudun oksijen bakımından fakir ortamlara alışmaya başlıyor. İrtifa seni eskisine göre daha az etkiliyor.",
+        "Russian": "Ваш организм начинает привыкать к среде с низким содержанием кислорода. Высота влияет на вас меньше, чем раньше."
+    },
+    "GAMEPLAY_AcclimatizedIIBuffName": {
+        "English": "Acclimatized II",
+        "French (France)": "Acclimaté II",
+        "Spanish (Spain)": "Aclimatado II",
+        "German": "Akklimatisiert II",
+        "Turkish": "İklime Alışmış II",
+        "Russian": "Акклиматизирован II"
+    },
+    "GAMEPLAY_AcclimatizedIIBuffCause": {
+        "English": "Prolonged exposure to insufficient oxygen levels",
+        "French (France)": "Exposition prolongée à un niveau d'oxygène insuffisant",
+        "Spanish (Spain)": "Exposición prolongada a niveles insuficientes de oxígeno",
+        "German": "Längere Belastung durch unzureichenden Sauerstoff",
+        "Turkish": "Yetersiz oksijen seviyelerine uzun süre maruz kalma",
+        "Russian": "Длительное воздействие недостаточного уровня кислорода"
+    },
+    "GAMEPLAY_AcclimatizedIIBuffDescription": {
+        "English": "Your body has deeply acclimatized to extreme altitudes. The effects of oxygen deprivation are significantly reduced.",
+        "French (France)": "Votre organisme s'est profondément acclimaté aux très hautes altitudes. Les effets du manque d'oxygène sont nettement atténués.",
+        "Spanish (Spain)": "Tu organismo se ha aclimatado profundamente a altitudes extremas. Los efectos de la falta de oxígeno se reducen de forma significativa.",
+        "German": "Dein Körper hat sich stark an extreme Höhen akklimatisiert. Die Auswirkungen des Sauerstoffmangels sind deutlich abgeschwächt.",
+        "Turkish": "Vücudun aşırı irtifalara derinlemesine uyum sağladı. Oksijen eksikliğinin etkileri belirgin şekilde azalır.",
+        "Russian": "Ваш организм глубоко акклиматизировался к экстремальным высотам. Последствия нехватки кислорода значительно ослаблены."
     }
 }

@@ -8,16 +8,35 @@ namespace OxygenLevels
         // HUD
         [Section("HUD Settings")]
 
-        [Name("Using InterloperHUDpro ?")]
-        [Description("prevents HUDs from overlapping.")]
-        public bool interHUD = false;
+        [Name("Altitude HUD ?")]
+        [Description("The altitude HUD is turned on by default.")]
+        public bool ShowHUD = true;
+
+        [Name("Customize altitude HUD")]
+        [Description("Show customization settings for the altitude HUD.")]
+        public bool ShowAltitudeHUDCustomization = false;
+
+        [Name("Altitude HUD X position")]
+        [Description("Moves the altitude display left or right. Default: -45.")]
+        [Slider(-200, 2000, 2201, NumberFormat = "{0:0}")]
+        public int AltitudeHudX = -45;
+
+        [Name("Altitude HUD Y position")]
+        [Description("Moves the altitude display up or down. Default: 127.")]
+        [Slider(-150, 1005, 1156, NumberFormat = "{0:0}")]
+        public int AltitudeHudY = 127;
+
+        [Name("Altitude HUD size")]
+        [Description("Controls the size of the altitude HUD text. Default: 32.")]
+        [Slider(14, 48, 35, NumberFormat = "{0:0}")]
+        public int AltitudeHudFontSize = 32;
 
         // Acclimatization
         [Section("Acclimatization")]
 
         [Name("Time needed to acclimatize")]
-        [Description("Base = 24 - ingame hours")]
-        [Slider(1, 72)]
+        [Description("Base: 24 in-game hours. Controls how long the player must stay exposed before gaining each acclimatization level.")]
+        [Slider(1f, 72f, 143, NumberFormat = "{0:0.0}h")]
         public float AcclimatizationTimer = 24f;
 
         // O₂ levels
@@ -29,48 +48,48 @@ namespace OxygenLevels
         public bool LowO2 = false;
 
         [Name("Altitude threshold")]
-        [Description("Base = 360")]
-        [Slider(0, 700)]
-        public float LowThreshold = 360f;
+        [Description("Base: 360m. Altitude where Low O₂ effects start.")]
+        [Slider(0, 700, 701, NumberFormat = "{0:0}m")]
+        public int LowThreshold = 360;
 
         [Name("Stamina recovery speed")]
-        [Description("Base = 0.6")]
-        [Slider(0.1f, 1)]
+        [Description("Base: 0.6x. Lower values make stamina recover slower.")]
+        [Slider(0.1f, 1f, 10, NumberFormat = "{0:0.0}x")]
         public float LowStaminaMultiplier = 0.6f;
 
         [Name("Stamina consumption speed")]
-        [Description("Base = 1.5")]
-        [Slider(1.5f, 10)]
+        [Description("Base: 1.5x. Higher values make stamina drain faster.")]
+        [Slider(1.5f, 10f, 86, NumberFormat = "{0:0.0}x")]
         public float LowStaminaConsumptionMultiplier = 1.5f;
 
         [Name("Minimum fatigue consumption speed")]
-        [Description("Base = 4")]
-        [Slider(2, 100)]
+        [Description("Base: 4x. Minimum fatigue burn multiplier while affected by Low O₂.")]
+        [Slider(2f, 100f, 981, NumberFormat = "{0:0.0}x")]
         public float LowMinFatigueBurnMultiplier = 4f;
 
         [Name("Maximum fatigue consumption speed")]
-        [Description("Base = 4")]
-        [Slider(2, 100)]
+        [Description("Base: 4x. Maximum fatigue burn multiplier while affected by Low O₂.")]
+        [Slider(2f, 100f, 981, NumberFormat = "{0:0.0}x")]
         public float LowMaxFatigueBurnMultiplier = 4f;
 
         [Name("Fire ignition multiplier")]
-        [Description("Base = 2")]
-        [Slider(2, 10)]
+        [Description("Base: 2x. Higher values make fire starting slower.")]
+        [Slider(2f, 10f, 81, NumberFormat = "{0:0.0}x")]
         public float LowFireIgnitionMultiplier = 2f;
 
         [Name("Seconds before recovering stamina multiplier")]
-        [Description("Base = 2")]
-        [Slider(2, 20)]
+        [Description("Base: 2x. Higher values delay stamina recovery for longer.")]
+        [Slider(2f, 20f, 181, NumberFormat = "{0:0.0}x")]
         public float LowSecondsBeforeRecovStamMultiplier = 2f;
 
         [Name("Dysentery recovery time multiplier")]
-        [Description("Base = 1.5")]
-        [Slider(1.5f, 20)]
+        [Description("Base: 1.5x. Higher values make dysentery recovery take longer.")]
+        [Slider(1.5f, 20f, 186, NumberFormat = "{0:0.0}x")]
         public float LowDysenteryRecoveryTimeMultiplier = 1.5f;
 
         [Name("Food poisoning recovery time multiplier")]
-        [Description("Base = 1.5")]
-        [Slider(1.5f, 20)]
+        [Description("Base: 1.5x. Higher values make food poisoning recovery take longer.")]
+        [Slider(1.5f, 20f, 186, NumberFormat = "{0:0.0}x")]
         public float LowFoodPoisoningRecoveryTimeMultiplier = 1.5f;
 
 
@@ -80,48 +99,48 @@ namespace OxygenLevels
         public bool CriticalO2 = false;
 
         [Name("Altitude threshold")]
-        [Description("Base = 460")]
-        [Slider(0, 750)]
+        [Description("Base: 460m. Altitude where Critical O₂ effects start.")]
+        [Slider(0f, 750f, 751, NumberFormat = "{0:0}m")]
         public float CritThreshold = 460f;
 
         [Name("Stamina recovery speed")]
-        [Description("Base = 0.3")]
-        [Slider(0.1f, 1)]
+        [Description("Base: 0.3x. Lower values make stamina recover slower.")]
+        [Slider(0.1f, 1f, 10, NumberFormat = "{0:0.0}x")]
         public float CritStaminaMultiplier = 0.3f;
 
         [Name("Stamina consumption speed")]
-        [Description("Base = 2.5")]
-        [Slider(2, 10)]
+        [Description("Base: 2.5x. Higher values make stamina drain faster.")]
+        [Slider(2f, 10f, 81, NumberFormat = "{0:0.0}x")]
         public float CritStaminaConsumptionMultiplier = 2.5f;
 
         [Name("Minimum fatigue consumption speed")]
-        [Description("Base = 10")]
-        [Slider(2, 100)]
+        [Description("Base: 10x. Minimum fatigue burn multiplier while affected by Critical O₂.")]
+        [Slider(2f, 100f, 981, NumberFormat = "{0:0.0}x")]
         public float CritMinFatigueBurnMultiplier = 10f;
 
         [Name("Maximum fatigue consumption speed")]
-        [Description("Base = 10")]
-        [Slider(2, 100)]
+        [Description("Base: 10x. Maximum fatigue burn multiplier while affected by Critical O₂.")]
+        [Slider(2f, 100f, 981, NumberFormat = "{0:0.0}x")]
         public float CritMaxFatigueBurnMultiplier = 10f;
 
         [Name("Fire ignition multiplier")]
-        [Description("Base = 3")]
-        [Slider(2, 10)]
+        [Description("Base: 3x. Higher values make fire starting slower.")]
+        [Slider(2f, 10f, 81, NumberFormat = "{0:0.0}x")]
         public float CritFireIgnitionMultiplier = 3f;
 
         [Name("Seconds before recovering stamina multiplier")]
-        [Description("Base = 3")]
-        [Slider(2, 20)]
+        [Description("Base: 3x. Higher values delay stamina recovery for longer.")]
+        [Slider(2f, 20f, 181, NumberFormat = "{0:0.0}x")]
         public float CritSecondsBeforeRecovStamMultiplier = 3f;
 
         [Name("Dysentery recovery time multiplier")]
-        [Description("Base = 2")]
-        [Slider(2, 20)]
+        [Description("Base: 2x. Higher values make dysentery recovery take longer.")]
+        [Slider(2f, 20f, 181, NumberFormat = "{0:0.0}x")]
         public float CritDysenteryRecoveryTimeMultiplier = 2f;
 
         [Name("Food poisoning recovery time multiplier")]
-        [Description("Base = 2")]
-        [Slider(2, 20)]
+        [Description("Base: 2x. Higher values make food poisoning recovery take longer.")]
+        [Slider(2f, 20f, 181, NumberFormat = "{0:0.0}x")]
         public float CritFoodPoisoningRecoveryTimeMultiplier = 2f;
 
 
@@ -131,79 +150,113 @@ namespace OxygenLevels
         public bool InsufficientO2 = false;
 
         [Name("Altitude threshold")]
-        [Description("Base = 580")]
-        [Slider(0, 800)]
+        [Description("Base: 580m. Altitude where Insufficient O₂ effects start.")]
+        [Slider(0f, 800f, 801, NumberFormat = "{0:0}m")]
         public float InsuThreshold = 580f;
 
         [Name("Stamina recovery speed")]
-        [Description("Base = 0.1 / 10")]
-        [Slider(0.1f, 10.00f, 99)]
+        [Description("Base: 0.1x. Lower values make stamina recover slower.")]
+        [Slider(0.1f, 10f, 100, NumberFormat = "{0:0.0}x")]
         public float InsuStaminaMultiplier = 0.1f;
 
         [Name("Stamina consumption speed")]
-        [Description("Base = 3")]
-        [Slider(2, 10)]
+        [Description("Base: 3x. Higher values make stamina drain faster.")]
+        [Slider(2f, 10f, 81, NumberFormat = "{0:0.0}x")]
         public float InsuStaminaConsumptionMultiplier = 3f;
 
         [Name("Minimum fatigue consumption speed")]
-        [Description("Base = 20")]
-        [Slider(2, 100)]
+        [Description("Base: 20x. Minimum fatigue burn multiplier while affected by Insufficient O₂.")]
+        [Slider(2f, 100f, 981, NumberFormat = "{0:0.0}x")]
         public float InsuMinFatigueBurnMultiplier = 20f;
 
         [Name("Maximum fatigue consumption speed")]
-        [Description("Base = 20")]
-        [Slider(2, 100)]
+        [Description("Base: 20x. Maximum fatigue burn multiplier while affected by Insufficient O₂.")]
+        [Slider(2f, 100f, 981, NumberFormat = "{0:0.0}x")]
         public float InsuMaxFatigueBurnMultiplier = 20f;
 
         [Name("Fire ignition multiplier")]
-        [Description("Base = 5")]
-        [Slider(2, 10)]
+        [Description("Base: 5x. Higher values make fire starting slower.")]
+        [Slider(2f, 10f, 81, NumberFormat = "{0:0.0}x")]
         public float InsuFireIgnitionMultiplier = 5f;
 
         [Name("Seconds before recovering stamina multiplier")]
-        [Description("Base = 5")]
-        [Slider(2, 20)]
+        [Description("Base: 5x. Higher values delay stamina recovery for longer.")]
+        [Slider(2f, 20f, 181, NumberFormat = "{0:0.0}x")]
         public float InsuSecondsBeforeRecovStamMultiplier = 5f;
 
         [Name("Dysentery recovery time multiplier")]
-        [Description("Base = 3")]
-        [Slider(2, 20)]
+        [Description("Base: 3x. Higher values make dysentery recovery take longer.")]
+        [Slider(2f, 20f, 181, NumberFormat = "{0:0.0}x")]
         public float InsuDysenteryRecoveryTimeMultiplier = 3f;
 
         [Name("Food poisoning recovery time multiplier")]
-        [Description("Base = 3")]
-        [Slider(2, 20)]
+        [Description("Base: 3x. Higher values make food poisoning recovery take longer.")]
+        [Slider(2f, 20f, 181, NumberFormat = "{0:0.0}x")]
         public float InsuFoodPoisoningRecoveryTimeMultiplier = 3f;
 
         [Name("Stamina consumption when walking")]
-        [Description("Base = 0.1")]
-        [Slider(0.1f, 10, 99)]
+        [Description("Base: 0.1 per second. Stamina drain while walking in Insufficient O₂.")]
+        [Slider(0.1f, 10f, 100, NumberFormat = "{0:0.0}/s")]
         public float InsuStaminaWalkingBurn = 0.1f;
 
         [Name("Condition lost when walking with no stamina")]
-        [Description("Base = 0.5 / 10")]
-        [Slider(0.5f, 10f, 95)]
+        [Description("Base: 0.5. Condition loss when walking with no stamina in Insufficient O₂.")]
+        [Slider(0.5f, 10f, 96, NumberFormat = "{0:0.0}")]
         public float ConditionLostZeroStamina = 0.5f;
 
         [Name("AMS chance")]
-        [Description("Base = 4% - this roll every in-game hours.")]
-        [Slider(1, 100, 99, NumberFormat = "{0}%")]
-        public int AMSchance = 4;
+        [Description("Base: 50%. Chance per in-game hour to develop AMS risk after staying in Insufficient O₂ without Critical O₂ acclimatization.")]
+        [Slider(0, 100, 101, NumberFormat = "{0:0}%")]
+        public int AMSchance = 50;
 
         [Name("AMS appearance time")]
-        [Description("Base = 2 in-game hours - This is the time from which AMS CAN appear.")]
-        [Slider(1, 10)]
+        [Description("Base: 2 in-game hours. Grace time before AMS risk rolls can start while staying in Insufficient O₂ without Critical O₂ acclimatization.")]
+        [Slider(1f, 10f, 19, NumberFormat = "{0:0.0}h")]
         public float AMSAppeanceTime = 2f;
 
         [Name("AMS disappearance time")]
-        [Description("Base = 2 - ingame hours - If set to 1, the disappearance time will be the same as the appearance time. Set to 2, the disappearance time will be multiplied by 2, etc.")]
-        [Slider(1, 10)]
+        [Description("Base: 2x. Recovery multiplier for unprepared Insufficient O₂ exposure. Higher values make exposure recover faster once the player leaves the danger state.")]
+        [Slider(1f, 5f, 9, NumberFormat = "{0:0.0}x")]
         public float AMSDisappearanceTime = 2f;
 
+        [Name("AMS lethality preset")]
+        [Description("Controls how much condition AMS drains once the real affliction is active.")]
+        [Choice("Forgiving", "Standard", "Harsh", "Brutal", "Who Wants to Play Like This?")]
+        public int AMSLethalityPreset = 1;
+
+
+        [Section("Advanced")]
+
+        [Name("ML Logging")]
+        [Description("Add logs for debugging in the ML console.")]
+        public bool IsLogging = false;
+
+        [Name("Do you want to mess with affliction ?")]
+        [Description("This will ruin everything...")]
+        public bool RevealShinyAfflictionIconChance1 = false;
+
+        [Name("Are you sure you want to interfer with your destiny ?")]
+        [Description("Think twice")]
+        public bool RevealShinyAfflictionIconChance2 = false;
+
+        [Name("Fine. Let's tempt fate.")]
+        [Description("This will reveals a true heresy. Don't touch it.")]
+        public bool RevealShinyAfflictionIconChance3 = false;
+
+        [Name("Your Destiny")]
+        [Description("This slider allows you to choose how much you want to alter your destiny, please don't touch it.")]
+        [Slider(0f, 100f, 1001, NumberFormat = "{0:0.0}")]
+        public float AltAfflictionIconChance = 0.1f;
 
         internal void RefreshFields()
         {
-            // Low o₂
+            // HUD customization
+            bool showAltitudeHudCustomization = ShowAltitudeHUDCustomization && ShowHUD;
+            SetFieldVisible(nameof(AltitudeHudX), showAltitudeHudCustomization);
+            SetFieldVisible(nameof(AltitudeHudY), showAltitudeHudCustomization);
+            SetFieldVisible(nameof(AltitudeHudFontSize), showAltitudeHudCustomization);
+
+            // Low O₂
             SetFieldVisible(nameof(LowThreshold), LowO2);
             SetFieldVisible(nameof(LowStaminaMultiplier), LowO2);
             SetFieldVisible(nameof(LowStaminaConsumptionMultiplier), LowO2);
@@ -214,7 +267,7 @@ namespace OxygenLevels
             SetFieldVisible(nameof(LowDysenteryRecoveryTimeMultiplier), LowO2);
             SetFieldVisible(nameof(LowFoodPoisoningRecoveryTimeMultiplier), LowO2);
 
-            // Critical o₂
+            // Critical O₂
             SetFieldVisible(nameof(CritThreshold), CriticalO2);
             SetFieldVisible(nameof(CritStaminaMultiplier), CriticalO2);
             SetFieldVisible(nameof(CritStaminaConsumptionMultiplier), CriticalO2);
@@ -225,7 +278,7 @@ namespace OxygenLevels
             SetFieldVisible(nameof(CritDysenteryRecoveryTimeMultiplier), CriticalO2);
             SetFieldVisible(nameof(CritFoodPoisoningRecoveryTimeMultiplier), CriticalO2);
 
-            // Insufficient o₂
+            // Insufficient O₂
             SetFieldVisible(nameof(InsuThreshold), InsufficientO2);
             SetFieldVisible(nameof(InsuStaminaMultiplier), InsufficientO2);
             SetFieldVisible(nameof(InsuStaminaConsumptionMultiplier), InsufficientO2);
@@ -237,29 +290,33 @@ namespace OxygenLevels
             SetFieldVisible(nameof(InsuFoodPoisoningRecoveryTimeMultiplier), InsufficientO2);
             SetFieldVisible(nameof(InsuStaminaWalkingBurn), InsufficientO2);
             SetFieldVisible(nameof(ConditionLostZeroStamina), InsufficientO2);
+            SetFieldVisible(nameof(AMSchance), InsufficientO2);
             SetFieldVisible(nameof(AMSAppeanceTime), InsufficientO2);
             SetFieldVisible(nameof(AMSDisappearanceTime), InsufficientO2);
-            SetFieldVisible(nameof(AMSchance), InsufficientO2);
+            SetFieldVisible(nameof(AMSLethalityPreset), InsufficientO2);
         }
 
         protected override void OnChange(FieldInfo field, object? oldValue, object? newValue)
         {
+            if (field.Name == nameof(RevealShinyAfflictionIconChance1) ||
+                field.Name == nameof(RevealShinyAfflictionIconChance2) ||
+                field.Name == nameof(RevealShinyAfflictionIconChance3))
+            {
+                Settings.UpdateShinyAfflictionIconChanceVisibility();
+            }
+
             RefreshFields();
         }
 
         protected override void OnConfirm()
         {
             base.OnConfirm();
-            Core.isInterHUD = interHUD;
-
-            Settings.RequestAltitudeHUDReposition = true;
         }
     }
 
     internal static class Settings
     {
         public static OxModSettings options;
-        public static bool RequestAltitudeHUDReposition;
 
         public static void OnLoad()
         {
@@ -268,7 +325,29 @@ namespace OxygenLevels
 
             options.RefreshFields();
 
-            Core.isInterHUD = options.interHUD;
+            UpdateShinyAfflictionIconChanceVisibility();
+        }
+
+        internal static void UpdateShinyAfflictionIconChanceVisibility()
+        {
+            bool showSecond = options.RevealShinyAfflictionIconChance1;
+            bool showThird = showSecond && options.RevealShinyAfflictionIconChance2;
+            bool showChance = showThird && options.RevealShinyAfflictionIconChance3;
+
+            if (!showSecond)
+            {
+                options.RevealShinyAfflictionIconChance2 = false;
+                options.RevealShinyAfflictionIconChance3 = false;
+            }
+
+            if (!showThird)
+            {
+                options.RevealShinyAfflictionIconChance3 = false;
+            }
+
+            options.SetFieldVisible(nameof(options.RevealShinyAfflictionIconChance2), showSecond);
+            options.SetFieldVisible(nameof(options.RevealShinyAfflictionIconChance3), showThird);
+            options.SetFieldVisible(nameof(options.AltAfflictionIconChance), showChance);
         }
     }
 }

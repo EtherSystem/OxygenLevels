@@ -16,19 +16,24 @@
 
 	<ItemGroup>
 	  <None Remove="Localization.json" />
+	  <None Remove="Resources\Icons\Alt\AcclimatizedII_ALT.png" />
+	  <None Remove="Resources\Icons\Alt\AcclimatizedI_ALT.png" />
+	  <None Remove="Resources\Icons\Alt\AMSrisk_ALT.png" />
+	  <None Remove="Resources\Icons\Alt\AMS_ALT.png" />
 	  <None Remove="Resources\Icons\AMS.png" />
 	  <None Remove="Resources\Icons\AMSrisk.png" />
+	  <None Remove="Resources\Icons\Aperture.png" />
+	  <None Remove="Resources\Icons\Classic\AcclimatizedI.png" />
+	  <None Remove="Resources\Icons\Classic\AcclimatizedII.png" />
+	  <None Remove="Resources\Icons\Classic\AMS.png" />
+	  <None Remove="Resources\Icons\Classic\AMSrisk.png" />
 	</ItemGroup>	
 	
 	<!-- List of used references -->
-	<ItemGroup>
-		<!-- This is the base reference. MUST EXIST -->
-		<PackageReference Include="STBlade.Modding.TLD.Il2CppAssemblies.Windows" Version="2.51.0" />
-		<!-- This is only if you use the ModSettings -->
-		<PackageReference Include="STBlade.Modding.TLD.ModSettings" Version="1.9.0" />
+	<ItemGroup>		<!-- This is only if you use the ModSettings -->
 		<!-- Only if you need ModData  -->
-		<PackageReference Include="STBlade.Modding.TLD.ModData" Version="1.5.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="Waltz.Modding.TLD.Il2CppAssemblies.Windows" Version="2.52.0" />
 	</ItemGroup>
 
 	<!-- Most commonly used using's. Add to this so you dont need to define them in the cs files -->
@@ -43,8 +48,6 @@
 		<Using Include="ModSettings" />
 		<!-- Only if your using ModComponent -->
 		<Using Include="ModComponent" />
-		<!-- Only if your using ModData -->
-		<Using Include="ModData" />
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -53,16 +56,29 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Include="AfflictionSaveHelper.cs" />
+		<Compile Include="Afflictions\CriticalAcclimatized.cs" />
 		<Compile Include="Afflictions\AMS.cs" />
 		<Compile Include="Afflictions\AMSrisk.cs" />
+		<Compile Include="Afflictions\InsufficientAcclimatized.cs" />
 		<Compile Include="Core.cs" />
 		<Compile Include="OxModSettings.cs" />
 		<Compile Include="Patches\VisualPatch.cs" />
+		<Compile Include="Persistence\OLState.cs" />
+		<Compile Include="Persistence\SaveDataManager.cs" />
+		<Compile Include="Resources\Localization\ILocalizableAffliction.cs" />
+		<Compile Include="Resources\Localization\LocalizationRefresh.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Icons\AMS.png" />
-	  <EmbeddedResource Include="Resources\Icons\AMSrisk.png" />
+	  <EmbeddedResource Include="Resources\Icons\Alt\AcclimatizedII_ALT.png" />
+	  <EmbeddedResource Include="Resources\Icons\Alt\AcclimatizedI_ALT.png" />
+	  <EmbeddedResource Include="Resources\Icons\Alt\AMSrisk_ALT.png" />
+	  <EmbeddedResource Include="Resources\Icons\Alt\AMS_ALT.png" />
+	  <EmbeddedResource Include="Resources\Icons\Classic\AcclimatizedI.png" />
+	  <EmbeddedResource Include="Resources\Icons\Classic\AcclimatizedII.png" />
+	  <EmbeddedResource Include="Resources\Icons\Classic\AMS.png" />
+	  <EmbeddedResource Include="Resources\Icons\Classic\AMSrisk.png" />
 	  <EmbeddedResource Include="Resources\Localization\Localization.json" />
 	</ItemGroup>
 
@@ -73,6 +89,12 @@
 	  <Reference Include="AfflictionComponent">
 		<HintPath>$(TheLongDarkPath)\Mods\AfflictionComponent.dll</HintPath>
 	  </Reference>
+		<Reference Include="ModSettings">
+			<HintPath>$(TheLongDarkPath)\Mods\ModSettings.dll</HintPath>
+		</Reference>
+		<Reference Include="ModData">
+			<HintPath>$(TheLongDarkPath)\Mods\ModData.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<!-- This is a build event. It will copy your dll to the currently defined TheLongDarkPath's Mods folder -->

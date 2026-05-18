@@ -4,103 +4,154 @@ namespace OxygenLevels.Patches
 {
     internal static class Patches
     {
-        private static Color darkRed = new Color(0.8f, 0.2f, 0.23f, 1.000f);
-
-        [HarmonyPatch(typeof(StatusBar), "Update")]
-        private static class AltitudeMetter
+        [HarmonyPatch(typeof(StatusBar), nameof(StatusBar.Update))]
+        private static class AltitudeMeter
         {
-            public static double elapsedMinutes = 0d;
-            public static GameObject tempObject;
+            private static readonly Color DefaultTextColor = new(0.9f, 0.95f, 1f, 1f);
+            private static readonly Color WarningTextColor = new(1f, 0.85f, 0.2f, 1f);
+            private static readonly Color DangerTextColor = new(0.8f, 0.2f, 0.23f, 1f);
+            private static readonly Color OutlineColor = new(0.125f, 0.094f, 0.094f, 0.6f);
 
-            private static int _cachedXOffset;
-            private static bool _hasCachedXOffset;
+            private static double _lastUpdateMinutes = 0d;
+            private static UILabel _altitudeLabel;
+            private static GameObject _altitudeObject;
+
+            private static Vector3 AltitudeHudPosition => new(Settings.options.AltitudeHudX, Settings.options.AltitudeHudY, 0f);
 
             private static void Postfix(StatusBar __instance)
             {
-                if (!__instance.m_IsOnHUD) return;
+                if (__instance == null || !__instance.m_IsOnHUD)
+                    return;
 
-                if (__instance.m_StatusBarType == StatusBar.StatusBarType.Cold)
+                if (__instance.m_StatusBarType != StatusBar.StatusBarType.Cold)
+                    return;
+
+                if (!Settings.options.ShowHUD)
                 {
-                    UpdateTempLabel(__instance);
+                    HideAltitudeHud();
+                    return;
+                }
+
+                UILabel label = GetOrCreateAltitudeLabel(__instance);
+                if (label == null)
+                    return;
+
+                RefreshAltitudeHudLayout(label);
+
+                double now = GameManager.GetHighResolutionTimerManager().GetElapsedMinutes();
+                if (now - _lastUpdateMinutes < 0.1d)
+                    return;
+
+                label.text = GetAltitudeHudText();
+                label.color = GetAltitudeHudColor();
+                label.gameObject.SetActive(true);
+
+                _lastUpdateMinutes = now;
+            }
+
+            private static UILabel GetOrCreateAltitudeLabel(StatusBar statusBar)
+            {
+                if (statusBar.m_OuterBoxSprite == null)
+                    return null;
+
+                UISprite outerBoxSprite = statusBar.m_OuterBoxSprite.GetComponent<UISprite>();
+                if (outerBoxSprite == null)
+                    return null;
+
+                Transform targetParent = outerBoxSprite.transform.parent;
+                if (targetParent == null)
+                    return null;
+
+                if (_altitudeLabel != null)
+                {
+                    if (_altitudeLabel.transform.parent == targetParent)
+                        return _altitudeLabel;
+
+                    UnityEngine.Object.Destroy(_altitudeLabel.gameObject);
+                    _altitudeLabel = null;
+                    _altitudeObject = null;
+                }
+
+                GameObject existingObject = targetParent.Find("AltitudeHudLabel")?.gameObject;
+                if (existingObject != null)
+                {
+                    UILabel existingLabel = existingObject.GetComponent<UILabel>();
+                    if (existingLabel != null)
+                    {
+                        _altitudeObject = existingObject;
+                        _altitudeLabel = existingLabel;
+                        return _altitudeLabel;
+                    }
+                }
+
+                _altitudeObject = new GameObject("AltitudeHudLabel");
+                _altitudeObject.transform.SetParent(targetParent, false);
+                _altitudeObject.transform.localScale = Vector3.one;
+
+                _altitudeLabel = _altitudeObject.AddComponent<UILabel>();
+                ConfigureAltitudeLabel(_altitudeLabel);
+                _altitudeLabel.text = string.Empty;
+                _altitudeLabel.gameObject.SetActive(false);
+
+                return _altitudeLabel;
+            }
+
+            private static void ConfigureAltitudeLabel(UILabel label)
+            {
+                label.font = GameManager.GetFontManager().GetUIFontForCharacterSet(CharacterSet.Latin);
+                label.fontStyle = FontStyle.Normal;
+                label.color = DefaultTextColor;
+                label.fontSize = Settings.options.AltitudeHudFontSize;
+                label.effectStyle = UILabel.Effect.Outline;
+                label.effectColor = OutlineColor;
+                label.effectDistance = Settings.options.AltitudeHudFontSize >= 32
+                    ? new Vector2(1.7f, 1.7f)
+                    : new Vector2(1.5f, 1.5f);
+                label.overflowMethod = UILabel.Overflow.ResizeFreely;
+                label.alignment = NGUIText.Alignment.Left;
+                label.pivot = UIWidget.Pivot.Left;
+            }
+
+            private static void RefreshAltitudeHudLayout(UILabel label)
+            {
+                label.transform.localPosition = AltitudeHudPosition;
+
+                int fontSize = Settings.options.AltitudeHudFontSize;
+                if (label.fontSize != fontSize)
+                {
+                    label.fontSize = fontSize;
+                    label.effectDistance = fontSize >= 32
+                        ? new Vector2(1.7f, 1.7f)
+                        : new Vector2(1.5f, 1.5f);
                 }
             }
 
-            private static void UpdateTempLabel(StatusBar __instance)
+            private static string GetAltitudeHudText()
             {
-                if (tempObject == null)
+                return currentState switch
                 {
-                    UISprite sprite = __instance.m_OuterBoxSprite.GetComponent<UISprite>();
-                    GameObject spriteObject = sprite.gameObject;
+                    AltitudeState.Normal => Localization.Get("GAMEPLAY_NormalDisplay"),
+                    AltitudeState.Weakened => Localization.Get("GAMEPLAY_LowDisplay"),
+                    AltitudeState.HeavyWeakened => Localization.Get("GAMEPLAY_CriticalDisplay"),
+                    AltitudeState.TooWeak => Localization.Get("GAMEPLAY_InsufficientDisplay"),
+                    _ => string.Empty
+                };
+            }
 
-                    tempObject = new GameObject("altitude");
-                    tempObject.transform.SetParent(spriteObject.transform.parent);
-                    tempObject.transform.localScale = spriteObject.transform.localScale;
-
-                    UILabel tempLabel = tempObject.AddComponent<UILabel>();
-                    tempLabel.text = "Altitude";
-                    tempLabel.color = new Color(0.9f, 0.95f, 1f);
-                    tempLabel.fontStyle = FontStyle.Normal;
-                    tempLabel.font = GameManager.GetFontManager().GetUIFontForCharacterSet(CharacterSet.Latin);
-                    tempLabel.fontSize = 32;
-                    tempLabel.effectStyle = UILabel.Effect.Outline;
-                    tempLabel.effectColor = new Color(0.125f, 0.094f, 0.094f, 0.6f);
-                    tempLabel.effectDistance = new Vector2(1.7f, 1.7f);
-
-                    tempLabel.overflowMethod = UILabel.Overflow.ResizeFreely;
-                    tempLabel.alignment = NGUIText.Alignment.Left;
-                    tempLabel.pivot = UIWidget.Pivot.Left;
-
-                    int x_offset = 50 - tempLabel.width;
-
-                    _cachedXOffset = x_offset;
-                    _hasCachedXOffset = true;
-
-                    int y_offset = (Settings.options.interHUD ? 100 : 20) + tempLabel.height;
-                    tempObject.transform.localPosition = new Vector3(x_offset, y_offset, 0);
-                }
-                else
+            private static Color GetAltitudeHudColor()
+            {
+                return currentState switch
                 {
-                    if (Settings.RequestAltitudeHUDReposition && _hasCachedXOffset)
-                    {
-                        UILabel tempLabel = tempObject.GetComponent<UILabel>();
-                        if (tempLabel != null)
-                        {
-                            int y_offset = (Settings.options.interHUD ? 100 : 20) + tempLabel.height;
-                            tempObject.transform.localPosition = new Vector3(_cachedXOffset, y_offset, 0);
-                        }
+                    AltitudeState.Weakened => WarningTextColor,
+                    AltitudeState.HeavyWeakened => DangerTextColor,
+                    AltitudeState.TooWeak => DangerTextColor,
+                    _ => DefaultTextColor
+                };
+            }
 
-                        Settings.RequestAltitudeHUDReposition = false;
-                    }
-
-                    if (GameManager.GetHighResolutionTimerManager().GetElapsedMinutes() - elapsedMinutes >= 0.1d)
-                    {
-                        UILabel tempLabel = tempObject.GetComponent<UILabel>();
-                        if (tempLabel != null && GameManager.GetFreezingComponent() != null)
-                        {
-                            switch (currentState)
-                            {
-                                case AltitudeState.Normal:
-                                    tempLabel.text = Localization.Get("GAMEPLAY_NormalDisplay");
-                                    tempLabel.color = new Color(0.9f, 0.95f, 1f);
-                                    break;
-                                case AltitudeState.Weakened:
-                                    tempLabel.text = Localization.Get("GAMEPLAY_LowDisplay");
-                                    tempLabel.color = new Color(1f, 0.85f, 0.2f);
-                                    break;
-                                case AltitudeState.HeavyWeakened:
-                                    tempLabel.text = Localization.Get("GAMEPLAY_CriticalDisplay");
-                                    tempLabel.color = darkRed;
-                                    break;
-                                case AltitudeState.TooWeak:
-                                    tempLabel.text = Localization.Get("GAMEPLAY_InsufficientDisplay");
-                                    tempLabel.color = darkRed;
-                                    break;
-                            }
-
-                            elapsedMinutes = GameManager.GetHighResolutionTimerManager().GetElapsedMinutes();
-                        }
-                    }
-                }
+            private static void HideAltitudeHud()
+            {
+                _altitudeLabel?.gameObject.SetActive(false);
             }
         }
     }
